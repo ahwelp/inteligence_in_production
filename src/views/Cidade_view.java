@@ -1,78 +1,42 @@
-package Views;
+package views;
 
-import classes.Pessoa.Endereco.Logradouro;
-import dao.LogradouroDAO;
+
+import br.com.is.dao.GenericoDAO;
 import javax.swing.JOptionPane;
 
-public class Logradouro extends javax.swing.JInternalFrame {
+public class Cidade_view extends javax.swing.JInternalFrame {
 
-    int codigo = 0;
-    LogradouroDAO loDAO = new LogradouroDAO();
+    int codEstado, codCidade = 0;
+    GenericoDAO cidDAO = new GenericoDAO();
 
-    public Logradouro() {
+    public Cidade_view(int codEstado) {
         initComponents();
-        new LogradouroDAO().popularTabela(tblConsulta, "");
-        tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
+        cidDAO.popularTabela(tblConsulta, "", codEstado);
+        this.codEstado = codEstado;
+        tfdCodigo.setText(Integer.toString(cidDAO.pegaProximoCodigo()));
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSair = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        btnSalvar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        tfdCodigo = new javax.swing.JTextField();
-        ftfSigla = new javax.swing.JFormattedTextField();
-        tfdNome = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tdfBuscar = new javax.swing.JTextField();
         btnBusca = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsulta = new javax.swing.JTable();
+        btnSair = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        tfdCodigo = new javax.swing.JTextField();
+        btnListar = new javax.swing.JButton();
+        tfdNome = new javax.swing.JTextField();
 
-        setTitle("Logradouros");
-
-        btnSair.setText("Fechar");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
-
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Código");
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Nome *");
-
-        tfdCodigo.setEditable(false);
-
-        jLabel3.setText("Sigla *");
+        setTitle("Estados");
 
         jLabel1.setText("Procurar");
 
@@ -120,6 +84,47 @@ public class Logradouro extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        btnSair.setText("Fechar");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Código");
+
+        jLabel4.setText("Nome *");
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        tfdCodigo.setEditable(false);
+
+        btnListar.setText("Listar cidades");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,41 +132,30 @@ public class Logradouro extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSair))
                     .addComponent(jLabel4)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(tfdNome, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(119, 119, 119))
-                                .addComponent(ftfSigla))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalvar)
+                        .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSair)))
+                        .addComponent(btnListar))
+                    .addComponent(tfdNome, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftfSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,7 +165,8 @@ public class Logradouro extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
-                    .addComponent(btnEditar))
+                    .addComponent(btnEditar)
+                    .addComponent(btnListar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -182,52 +177,54 @@ public class Logradouro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
+        cidDAO.popularTabela(tblConsulta, tdfBuscar.getText(), codEstado);
+    }//GEN-LAST:event_btnBuscaActionPerformed
+
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        codigo = 0;
-        tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
-        ftfSigla.setText("");
+        codCidade = 0;
+        tfdCodigo.setText(Integer.toString(cidDAO.pegaProximoCodigo()));
         tfdNome.setText("");
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            Logradouro lo = (Logradouro) loDAO.consultarId(Integer.parseInt(tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0).toString()));
-            codigo = lo.getCodigo();
-            tfdCodigo.setText(String.valueOf(codigo));
-            ftfSigla.setText(lo.getSigla());
-            tfdNome.setText(lo.getNome());
+            Estado_view es = (Estado_view) cidDAO.consultarId((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
+            codCidade = es.getCodigo();
+            tfdCodigo.setText(String.valueOf(codCidade));
+            tfdNome.setText(es.getNome());
         } else {
-            JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");
+            JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para edição!");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String retorno = null;
-        if (!tfdNome.getText().trim().equals("") && !ftfSigla.getText().trim().equals("__")) {
+        if (!tfdNome.getText().trim().equals("")) {
 
-            Logradouro lo = new Logradouro();
-            lo.setCodigo(Integer.parseInt(tfdCodigo.getText()));
-            lo.setNome(tfdNome.getText());
-            lo.setSigla(ftfSigla.getText());
+            Estado_view es = new Estado_view();
+            es.setCodigo(Integer.parseInt(tfdCodigo.getText()));
+            es.setNome(tfdNome.getText());
+            es.setPais((Pais_view) new PaisDAO().consultarId(codEstado));
 
-            if (codigo == 0) {
-                retorno = loDAO.salvar(lo);
+            if (codCidade == 0) {
+                retorno = cidDAO.salvar(es);
             } else {
-                lo.setCodigo(codigo);
-                retorno = loDAO.atualizar(lo);
+                es.setCodigo(codCidade);
+                retorno = cidDAO.atualizar(es);
             }
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-                tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
-                ftfSigla.setText("");
+                tfdCodigo.setText(Integer.toString(cidDAO.pegaProximoCodigo()));
+                cidDAO.popularTabela(tblConsulta, "", codEstado);
                 tfdNome.setText("");
+
                 tfdNome.requestFocus();
-                loDAO.popularTabela(tblConsulta, "");
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n"
                         + "Erro técnico: \n" + retorno);
@@ -237,21 +234,20 @@ public class Logradouro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        new LogradouroDAO().popularTabela(tblConsulta, tdfBuscar.getText());
-    }//GEN-LAST:event_btnBuscaActionPerformed
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+
+    }//GEN-LAST:event_btnListarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBusca;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JFormattedTextField ftfSigla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

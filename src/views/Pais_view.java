@@ -1,49 +1,76 @@
-package Views;
+package views;
 
-import classes.Pessoa.Endereco.Estado;
-import classes.Pessoa.Endereco.Pais;
-import dao.EstadoDAO;
-import dao.PaisDAO;
+import dao.GenericoDAO;
 import javax.swing.JOptionPane;
-import support.Formatacao;
+import utils.Formatacao;
+import Entitys.Pais;
+import utils.Support;
 
-public class Estado extends javax.swing.JInternalFrame {
+public class Pais_view extends javax.swing.JInternalFrame {
 
-    int codPais, codEstado = 0;
-    EstadoDAO esDAO = new EstadoDAO();
+    int codigo = 0;
+    GenericoDAO paDAO = new GenericoDAO();
 
-    public Estado(int codPais) {
+    public Pais_view() {
         initComponents();
-        esDAO.popularTabela(tblConsulta, "", codPais);
-        this.codPais = codPais;
-        tfdCodigo.setText(Integer.toString(esDAO.pegaProximoCodigo()));
-        ftfUf.requestFocus();
-        Formatacao.reformatarSigla(ftfUf);
+
+        tfdCodigo.setText("213");
+        ftfSigla.requestFocus();
+        Formatacao.reformatarSigla(ftfSigla);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnSair = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        tfdCodigo = new javax.swing.JTextField();
+        tfdNome = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tdfBuscar = new javax.swing.JTextField();
         btnBusca = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsulta = new javax.swing.JTable();
-        btnSair = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
-        tfdCodigo = new javax.swing.JTextField();
         btnListar = new javax.swing.JButton();
-        tfdNome = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        ftfUf = new javax.swing.JFormattedTextField();
+        ftfSigla = new javax.swing.JFormattedTextField();
 
-        setTitle("Estados");
+        setTitle("Países");
+
+        btnSair.setText("Fechar");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Código");
+
+        jLabel4.setText("Nome *");
+
+        tfdCodigo.setEditable(false);
+
+        jLabel3.setText("Sigla *");
 
         jLabel1.setText("Procurar");
 
@@ -96,31 +123,6 @@ public class Estado extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        btnSair.setText("Fechar");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
-
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Código");
-
-        jLabel4.setText("Nome *");
-
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,16 +130,12 @@ public class Estado extends javax.swing.JInternalFrame {
             }
         });
 
-        tfdCodigo.setEditable(false);
-
-        btnListar.setText("Listar cidades");
+        btnListar.setText("Listar estados");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarActionPerformed(evt);
             }
         });
-
-        jLabel3.setText("UF *");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,17 +144,13 @@ public class Estado extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSair))
                     .addComponent(jLabel4)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(4, 4, 4)
                         .addComponent(btnListar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(tfdNome, javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,8 +162,12 @@ public class Estado extends javax.swing.JInternalFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3)
-                                    .addGap(128, 128, 128))
-                                .addComponent(ftfUf)))))
+                                    .addGap(119, 119, 119))
+                                .addComponent(ftfSigla))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSair)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -182,7 +180,7 @@ public class Estado extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftfUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftfSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,10 +202,6 @@ public class Estado extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        esDAO.popularTabela(tblConsulta, tdfBuscar.getText(), codPais);
-    }//GEN-LAST:event_btnBuscaActionPerformed
-
     private void tblConsultaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblConsultaPropertyChange
 
     }//GEN-LAST:event_tblConsultaPropertyChange
@@ -217,46 +211,45 @@ public class Estado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        codEstado = 0;
-        tfdCodigo.setText(Integer.toString(esDAO.pegaProximoCodigo()));
-        ftfUf.setText("");
+        codigo = 0;
+        ftfSigla.setText("");
         tfdNome.setText("");
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            Estado es = (Estado) esDAO.consultarId((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
-            codEstado = es.getCodigo();
-            tfdCodigo.setText(String.valueOf(codEstado));
-            ftfUf.setText(es.getUf());
-            tfdNome.setText(es.getNome());
+            Pais pa = new Pais();
+            codigo = pa.getCodigo();
+            tfdCodigo.setText(String.valueOf(codigo));
+            ftfSigla.setText(pa.getSigla());
+            tfdNome.setText(pa.getNome());
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para edição!");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
+    }//GEN-LAST:event_btnBuscaActionPerformed
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String retorno = null;
-        if (!tfdNome.getText().trim().equals("") && !ftfUf.getText().trim().equals("__")) {
+        if (!tfdNome.getText().trim().equals("") && !ftfSigla.getText().trim().equals("__")) {
 
-            Estado es = new Estado();
-            es.setCodigo(Integer.parseInt(tfdCodigo.getText()));
-            es.setNome(tfdNome.getText());
-            es.setUf(ftfUf.getText());
-            es.setPais((Pais) new PaisDAO().consultarId(codPais));
+            Pais pa = new Pais();
+            pa.setCodigo(Integer.parseInt(tfdCodigo.getText()));
+            pa.setNome(tfdNome.getText());
+            pa.setSigla(ftfSigla.getText());
 
-            if (codEstado == 0) {
-                retorno = esDAO.salvar(es);
+            if (codigo == 0) {
+                retorno = paDAO.gravar(pa);
             } else {
-                es.setCodigo(codEstado);
-                retorno = esDAO.atualizar(es);
+                pa.setCodigo(codigo);
+                retorno = paDAO.atualizar(pa);
             }
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-                tfdCodigo.setText(Integer.toString(esDAO.pegaProximoCodigo()));
-                esDAO.popularTabela(tblConsulta, "", codPais);
-                ftfUf.setText("");
+                ftfSigla.setText("");
                 tfdNome.setText("");
                 tfdNome.requestFocus();
             } else {
@@ -269,9 +262,14 @@ public class Estado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-
+        if (tblConsulta.getSelectedRow() != -1) {
+            Estado_view telaEstados = new Estado_view((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
+            Support.centralizar(JanelaPrincipal.jDesktopPane.add(telaEstados));
+            telaEstados.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");
+        }
     }//GEN-LAST:event_btnListarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBusca;
@@ -280,7 +278,7 @@ public class Estado extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JFormattedTextField ftfUf;
+    private javax.swing.JFormattedTextField ftfSigla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

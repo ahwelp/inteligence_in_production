@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 import classes.Negocio.Usuario;
 import classes.Pessoa.Fisica;
@@ -17,16 +17,16 @@ import view.localidades.endereco;
 import view.telaPrincipal;
 import static view.telaPrincipal.jDesktopPane;
 
-public class Pessoa extends javax.swing.JInternalFrame {
+public class Pessoa_view extends javax.swing.JInternalFrame {
 
     int codEmpresa = 0;
     int codUsuario = 0;
 
-    public Pessoa() {
+    public Pessoa_view() {
         initComponents();
     }
 
-    public Pessoa(int empresa, int usuario) {
+    public Pessoa_view(int empresa, int usuario) {
         initComponents();
         this.codEmpresa = empresa;
         this.codUsuario = usuario;

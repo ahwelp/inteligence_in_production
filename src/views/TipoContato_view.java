@@ -1,15 +1,15 @@
-package Views;
+package views;
 
 import classes.Tipos;
 import dao.TipoContatoDAO;
 import javax.swing.JOptionPane;
 
-public class TipoContato extends javax.swing.JInternalFrame {
+public class TipoContato_view extends javax.swing.JInternalFrame {
 
     int codAdd = 0;
     TipoContatoDAO addDAO = new TipoContatoDAO();
 
-    public TipoContato() {
+    public TipoContato_view() {
         initComponents();
         tfdCodigo.setText(String.valueOf(addDAO.pegaProximoCodigo()));
         addDAO.popularTabela(tblConsulta, "");

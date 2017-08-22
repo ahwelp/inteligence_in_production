@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 import classes.Pessoa.Endereco.Cidade;
 import classes.Pessoa.Endereco.Endereco;
@@ -19,12 +19,12 @@ import view.cliente.cliente;
 import view.cliente.usuario;
 import view.contratado;
 
-public class Endereco extends javax.swing.JInternalFrame {
+public class Endereco_view extends javax.swing.JInternalFrame {
 
     int codPessoa = 0, codEndereco = 0, codPais = 0, codEstado = 0;
     char tela;
 
-    public Endereco(int codPessoa, int codEndereco, char tela) {
+    public Endereco_view(int codPessoa, int codEndereco, char tela) {
         initComponents();
         this.codEndereco = codEndereco;
         this.codPessoa = codPessoa;
@@ -258,7 +258,7 @@ public class Endereco extends javax.swing.JInternalFrame {
             ComboItens comboCidade = (ComboItens) cmbCidade.getSelectedItem();
             ends.setCidade((Cidade) new CidadeDAO().consultarId(comboCidade.getCodigo()));
 
-            Endereco end = new Endereco();
+            Endereco_view end = new Endereco_view();
             end.setEndereco(ends);
             end.setTipoEndereco(cmbTipoEndereco.getSelectedItem().toString());
 

@@ -5,7 +5,7 @@
  */
 package inteligence_in_production;
 
-import Views.JanelaPrincipal;
+import views.JanelaPrincipal;
 
 /**
  *

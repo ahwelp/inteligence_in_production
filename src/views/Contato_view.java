@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 import classes.Pessoa.Contato.Contato;
 import classes.Pessoa.Contato.Contatos;
@@ -16,13 +16,13 @@ import view.cliente.cliente;
 import view.cliente.usuario;
 import view.contratado;
 
-public class Contato extends javax.swing.JInternalFrame {
+public class Contato_view extends javax.swing.JInternalFrame {
 
     ContatosDAO contDAO = new ContatosDAO();
     private int codPessoa = 0, codContato = 0;
     private char tela = 'x';
 
-    public Contato(int codPessoa, int codContato, char tela) {
+    public Contato_view(int codPessoa, int codContato, char tela) {
         initComponents();
         this.codContato = codContato;
         this.codPessoa = codPessoa;
@@ -142,7 +142,7 @@ public class Contato extends javax.swing.JInternalFrame {
             contacts.setContato(tfdContato.getText());
             contacts.setDescricao(tfdContato.getText());
 
-            Contato contact = new Contato();
+            Contato_view contact = new Contato_view();
             ComboItens comboTipo = (ComboItens) cmbTipo.getSelectedItem();
             contact.setTipoContato((Tipos) new TipoContatoDAO().consultarId(comboTipo.getCodigo()));
             contact.setContato(contacts);

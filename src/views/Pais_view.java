@@ -3,18 +3,18 @@ package views;
 import dao.GenericoDAO;
 import javax.swing.JOptionPane;
 import utils.Formatacao;
-import Entitys.Pais;
+import entitys.Pais;
 import utils.Support;
 
 public class Pais_view extends javax.swing.JInternalFrame {
 
     int codigo = 0;
-    GenericoDAO paDAO = new GenericoDAO();
+    GenericoDAO gnDAO = new GenericoDAO();
 
     public Pais_view() {
         initComponents();
 
-        tfdCodigo.setText("213");
+        tfdCodigo.setText("23");
         ftfSigla.requestFocus();
         Formatacao.reformatarSigla(ftfSigla);
     }
@@ -236,26 +236,27 @@ public class Pais_view extends javax.swing.JInternalFrame {
         if (!tfdNome.getText().trim().equals("") && !ftfSigla.getText().trim().equals("__")) {
 
             Pais pa = new Pais();
-            pa.setCodigo(Integer.parseInt(tfdCodigo.getText()));
             pa.setNome(tfdNome.getText());
             pa.setSigla(ftfSigla.getText());
 
             if (codigo == 0) {
-                retorno = paDAO.gravar(pa);
+                System.out.println(pa.toString());
+                retorno = gnDAO.gravar(pa);
+
+                for (Object o : gnDAO.listar("pais")) {
+                    Pais s = (Pais) o;
+                    System.out.print("id: " + s.getCodigo()+ " ");
+                    System.out.println("nome: " + s.getNome());
+                }
             } else {
                 pa.setCodigo(codigo);
-                retorno = paDAO.atualizar(pa);
+                retorno = gnDAO.atualizar(pa);
             }
 
-            if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-                ftfSigla.setText("");
-                tfdNome.setText("");
-                tfdNome.requestFocus();
-            } else {
-                JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n"
-                        + "Erro técnico: \n" + retorno);
-            }
+            JOptionPane.showMessageDialog(null, retorno);
+            ftfSigla.setText("");
+            tfdNome.setText("");
+            tfdNome.requestFocus();
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
         }

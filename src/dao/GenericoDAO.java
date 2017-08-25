@@ -1,6 +1,6 @@
 package dao;
 
-import entitys.Cidade;
+import entitys.Logradouro;
 import java.util.ArrayList;
 import utils.HibernateUtil;
 import java.util.List;

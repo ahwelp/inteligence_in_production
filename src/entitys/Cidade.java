@@ -1,7 +1,8 @@
-package Entitys;
+package entitys;
 // Generated 19/08/2017 10:43:21 by Hibernate Tools 4.3.1
 
 
+import entitys.Estado;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;

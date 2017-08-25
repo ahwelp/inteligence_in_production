@@ -1,18 +1,20 @@
 package views;
 
-import classes.Pessoa.Endereco.Logradouro;
-import dao.LogradouroDAO;
+import entitys.Logradouro;
+import dao.GenericoDAO;
+//import dao.LogradouroDAO;
 import javax.swing.JOptionPane;
 
 public class Logradouro_view extends javax.swing.JInternalFrame {
 
     int codigo = 0;
-    LogradouroDAO loDAO = new LogradouroDAO();
+    GenericoDAO loDAO = new GenericoDAO();
+// LogradouroDAO loDAO = new LogradouroDAO();
 
     public Logradouro_view() {
         initComponents();
-        new LogradouroDAO().popularTabela(tblConsulta, "");
-        tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
+      //  new LogradouroDAO().popularTabela(tblConsulta, "");
+      //  tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
     }
 
     @SuppressWarnings("unchecked")
@@ -188,18 +190,18 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         codigo = 0;
-        tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
+      //  tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
         ftfSigla.setText("");
         tfdNome.setText("");
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            Logradouro_view lo = (Logradouro_view) loDAO.consultarId(Integer.parseInt(tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0).toString()));
-            codigo = lo.getCodigo();
+         //   Logradouro_view lo = (Logradouro_view) loDAO.consultarId(Integer.parseInt(tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0).toString()));
+         //   codigo = lo.getCodigo();
             tfdCodigo.setText(String.valueOf(codigo));
-            ftfSigla.setText(lo.getSigla());
-            tfdNome.setText(lo.getNome());
+        //    ftfSigla.setText(lo.getSigla());
+        //    tfdNome.setText(lo.getNome());
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");
         }
@@ -209,25 +211,25 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
         String retorno = null;
         if (!tfdNome.getText().trim().equals("") && !ftfSigla.getText().trim().equals("__")) {
 
-            Logradouro_view lo = new Logradouro_view();
-            lo.setCodigo(Integer.parseInt(tfdCodigo.getText()));
+            Logradouro lo = new Logradouro();
+            lo.setIdlogradouro(0);
             lo.setNome(tfdNome.getText());
             lo.setSigla(ftfSigla.getText());
 
-            if (codigo == 0) {
-                retorno = loDAO.salvar(lo);
-            } else {
-                lo.setCodigo(codigo);
-                retorno = loDAO.atualizar(lo);
-            }
+          //  if (codigo == 0) {
+          retorno = loDAO.gravar(lo);
+        //    } else {
+        //        lo.setCodigo(codigo);
+        //        retorno = loDAO.atualizar(lo);
+       //     }
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-                tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
+         //       tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
                 ftfSigla.setText("");
                 tfdNome.setText("");
                 tfdNome.requestFocus();
-                loDAO.popularTabela(tblConsulta, "");
+           //     loDAO.popularTabela(tblConsulta, "");
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n"
                         + "Erro técnico: \n" + retorno);
@@ -238,7 +240,7 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        new LogradouroDAO().popularTabela(tblConsulta, tdfBuscar.getText());
+    //    new LogradouroDAO().popularTabela(tblConsulta, tdfBuscar.getText());
     }//GEN-LAST:event_btnBuscaActionPerformed
 
 

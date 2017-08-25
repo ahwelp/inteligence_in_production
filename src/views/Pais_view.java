@@ -9,7 +9,7 @@ import utils.Support;
 public class Pais_view extends javax.swing.JInternalFrame {
 
     int codigo = 0;
-    GenericoDAO gnDAO = new GenericoDAO();
+    GenericoDAO gnDAO = new GenericoDAO<Pais>();
 
     public Pais_view() {
         initComponents();
@@ -243,9 +243,9 @@ public class Pais_view extends javax.swing.JInternalFrame {
                 System.out.println(pa.toString());
                 retorno = gnDAO.gravar(pa);
 
-                for (Object o : gnDAO.listar("pais")) {
+                for (Object o : gnDAO.listar(pa, "")) {
                     Pais s = (Pais) o;
-                    System.out.print("id: " + s.getCodigo()+ " ");
+                    System.out.print("id: " + s.getCodigo() + " ");
                     System.out.println("nome: " + s.getNome());
                 }
             } else {

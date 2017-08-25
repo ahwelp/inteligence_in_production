@@ -1,5 +1,6 @@
 package dao;
 
+import entitys.Cidade;
 import java.util.ArrayList;
 import utils.HibernateUtil;
 import java.util.List;
@@ -9,7 +10,7 @@ import org.hibernate.Session;
 /**
  * @author Portella, Rodolfo <rodolfosportella@gmail.com>
  */
-public abstract class GenericoDAO {
+public class GenericoDAO<T> {
 
     public String gravar(Object obj) {
         try {
@@ -55,16 +56,15 @@ public abstract class GenericoDAO {
         return null;
     }
 
-    public ArrayList listar(T obj, String condicao) {
+    public ArrayList<T> listar(T obj, String condicao) {
         List resultado = null;
 
         ArrayList<T> lista = new ArrayList<>();
         try {
             Session s = HibernateUtil.getSessionFactory().openSession();
             s.beginTransaction();
-            String sql = "from " + obj
-                    + " where " + condicao;
-            System.out.println(sql);
+            String sql = "from " + obj.getClass().getName()
+                    + ((condicao.isEmpty()) ? "" : (" where " + condicao));
             org.hibernate.Query q = s.createQuery(sql);
 
             resultado = q.list();
@@ -80,25 +80,9 @@ public abstract class GenericoDAO {
         return lista;
     }
 
-    public List listar(String entity) {
-        List resultado = null;
-
-        try {
-            Session sessao = HibernateUtil.getSessionFactory().openSession();
-            sessao.beginTransaction();
-
-            org.hibernate.Query q = sessao.createQuery("from " + entity);
-            resultado = q.list();
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        }
-        return resultado;
-    }
 //
 //    public int ProximoCodigo() {
 //
 //        return;
 //    }
-
 }

@@ -212,16 +212,12 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
         if (!tfdNome.getText().trim().equals("") && !ftfSigla.getText().trim().equals("__")) {
 
             Logradouro lo = new Logradouro();
-            lo.setIdlogradouro(0);
+            lo.setIdlogradouro(2);
             lo.setNome(tfdNome.getText());
             lo.setSigla(ftfSigla.getText());
 
-          //  if (codigo == 0) {
           retorno = loDAO.gravar(lo);
-        //    } else {
-        //        lo.setCodigo(codigo);
-        //        retorno = loDAO.atualizar(lo);
-       //     }
+
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");

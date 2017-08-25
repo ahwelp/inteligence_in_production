@@ -87,8 +87,8 @@ public class Estado  implements java.io.Serializable {
         this.uf = uf;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="estado")
-    public Set getCidades() {
+@OneToMany(mappedBy="estado")
+    public Set<Cidade> getCidades() {
         return this.cidades;
     }
     

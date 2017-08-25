@@ -73,7 +73,7 @@ public class Logradouro  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="logradouro")
-    public Set getEnderecos() {
+    public Set<Endereco> getEnderecos() {
         return this.enderecos;
     }
     

@@ -77,7 +77,7 @@ public class Cidade  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="cidade")
-    public Set getEnderecos() {
+    public Set<Endereco> getEnderecos() {
         return this.enderecos;
     }
     

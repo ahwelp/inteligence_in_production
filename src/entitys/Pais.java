@@ -73,7 +73,7 @@ public class Pais  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="pais")
-    public Set getEstados() {
+    public Set<Estado> getEstados() {
         return this.estados;
     }
     

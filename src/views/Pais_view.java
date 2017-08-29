@@ -1,6 +1,7 @@
 package views;
 
 import dao.GenericoDAO;
+import dao.PaisDAO;
 import javax.swing.JOptionPane;
 import utils.Formatacao;
 import entitys.Pais;
@@ -10,6 +11,7 @@ public class Pais_view extends javax.swing.JInternalFrame {
 
     int codigo = 0;
     GenericoDAO gnDAO = new GenericoDAO<Pais>();
+    Pais pa = new Pais();
 
     public Pais_view() {
         initComponents();
@@ -17,6 +19,14 @@ public class Pais_view extends javax.swing.JInternalFrame {
         tfdCodigo.setText("23");
         ftfSigla.requestFocus();
         Formatacao.reformatarSigla(ftfSigla);
+        tfdCodigo.setText(String.valueOf(gnDAO.ProximoCodigo(pa, "")));
+
+        Object[][] cabecalho = {
+            {"Código", pa.getCodigo()},
+            {"Titulo", pa.getNome()}
+        };
+
+        new PaisDAO.PopulaTabela(tblConsulta, pa, cabecalho, "");
     }
 
     @SuppressWarnings("unchecked")
@@ -218,7 +228,6 @@ public class Pais_view extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            Pais pa = new Pais();
             codigo = pa.getCodigo();
             tfdCodigo.setText(String.valueOf(codigo));
             ftfSigla.setText(pa.getSigla());
@@ -235,7 +244,6 @@ public class Pais_view extends javax.swing.JInternalFrame {
         String retorno = null;
         if (!tfdNome.getText().trim().equals("") && !ftfSigla.getText().trim().equals("__")) {
 
-            Pais pa = new Pais();
             pa.setNome(tfdNome.getText());
             pa.setSigla(ftfSigla.getText());
 

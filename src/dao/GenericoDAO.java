@@ -1,11 +1,19 @@
 package dao;
 
 import entitys.Cidade;
+import entitys.Pais;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import utils.HibernateUtil;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import net.sf.ehcache.search.expression.Between;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 
 /**
  * @author Portella, Rodolfo <rodolfosportella@gmail.com>
@@ -80,9 +88,23 @@ public class GenericoDAO<T> {
         return lista;
     }
 
-//
-//    public int ProximoCodigo() {
-//
-//        return;
-//    }
+    public int ProximoCodigo(T obj, String condicao) {
+        try {
+            Session s = HibernateUtil.getSessionFactory().openSession();
+            s.beginTransaction();
+            Criteria criteria = s.createCriteria(obj.getClass());
+
+            int maxId
+                    = (int) criteria.setProjection(Projections.max("codigo"))
+                            .uniqueResult();
+
+            return maxId + 1;
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        return 00;
+    }
+
+
 }

@@ -41,10 +41,12 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="iip" match-schema="public"/>
-  <table-filter match-name="estado"/>
-  <table-filter match-name="endereco"/>
-  <table-filter match-name="logradouro"/>
+  <table-filter match-name="pais"/>
   <table-filter match-name="tipoevento"/>
   <table-filter match-name="cidade"/>
-  <table-filter match-name="pais"/>
+  <table-filter match-name="evento"/>
+  <table-filter match-name="estado"/>
+  <table-filter match-name="tipoendereco"/>
+  <table-filter match-name="logradouro"/>
+  <table-filter match-name="endereco"/>
 </hibernate-reverse-engineering>

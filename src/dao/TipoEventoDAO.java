@@ -1,6 +1,6 @@
 package dao;
 
-import Entitys.Tipoevento;
+import Entitys.Tipoevento1;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +30,7 @@ public class TipoEventoDAO extends GenericoDAO<Object> {
         try {
             int row = 0;
             for (Object o : resultQuery) {
-                Tipoevento s = (Tipoevento) o;
+                Tipoevento1 s = (Tipoevento1) o;
                 dadosTabela[row][0] = s.getCodigo();
                 dadosTabela[row][1] = s.getNome();
                 row++;

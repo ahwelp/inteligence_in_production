@@ -7,17 +7,9 @@
     <class>Entitys.Cidade</class>
     <class>Entitys.Logradouro</class>
     <class>Entitys.Pais</class>
-    <class>entitys.Pais</class>
-    <class>entitys.Cidade</class>
-    <class>entitys.Tipoevento</class>
-    <class>entitys.Endereco</class>
-    <class>entitys.Evento</class>
-    <class>entitys.Tipoendereco</class>
-    <class>entitys.Logradouro</class>
-    <class>entitys.Estado</class>
-    <class>Entitys.Tipoendereco1</class>
-    <class>Entitys.Tipoevento1</class>
     <class>Entitys.Evento</class>
+    <class>Entitys.Tipoendereco</class>
+    <class>Entitys.Tipoevento</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/iip"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

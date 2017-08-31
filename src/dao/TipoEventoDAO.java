@@ -6,9 +6,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class TipoEventoDAO extends GenericoDAO<Object> {
+public class TabelaTiposDAO extends GenericoDAO<Object> {
 
-    public TipoEventoDAO(Object obj) {
+    public TabelaTiposDAO(Object obj) {
         super(obj);
     }
 
@@ -30,7 +30,7 @@ public class TipoEventoDAO extends GenericoDAO<Object> {
         try {
             int row = 0;
             for (Object o : resultQuery) {
-                Tipoevento s = (Tipoevento) o;
+                Object s = (Object) o;
                 dadosTabela[row][0] = s.getCodigo();
                 dadosTabela[row][1] = s.getNome();
                 row++;

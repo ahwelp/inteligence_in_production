@@ -1,27 +1,29 @@
 package views;
 
+import Entitys.Tipocontato;
 import dao.GenericoDAO;
 import dao.TabelaTiposDAO;
-import Entitys.Endereco;
-import Entitys.Tipoevento;
 import javax.swing.JOptionPane;
+import utils.Formatacao;
 
-public class TipoEvento_view extends javax.swing.JInternalFrame {
+public class TipoEndereco_view extends javax.swing.JInternalFrame {
 
-    Tipoevento te = new Tipoevento();
+    Tipocontato tc = new Tipocontato();
 
-    public TipoEvento_view() {
+    public TipoEndereco_view() {
         initComponents();
+        Formatacao.reformatarSigla(tfdSigla);
         resetField();
     }
 
     public void resetField() {
+        tfdSigla.setText("");
         tfdTitulo.setText("");
         tfdBuscar.setText("");
-        tfdTitulo.requestFocus(true);
-        te = new Tipoevento();
-        tfdCodigo.setText(String.valueOf(new GenericoDAO<Endereco>(te).ProximoCodigo()));
-        new TabelaTiposDAO(te).PopulaTabela(tblConsulta, "");
+        tfdSigla.requestFocus(true);
+        tc = new Tipocontato();
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Tipocontato>(tc).ProximoCodigo()));
+        new TabelaTiposDAO(tc).PopulaTabela(tblConsulta, "");
     }
 
     @SuppressWarnings("unchecked")
@@ -44,8 +46,10 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
         tfdTitulo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsulta = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        tfdSigla = new javax.swing.JFormattedTextField();
 
-        setTitle("Tipo de eventos");
+        setTitle("Tipo de contatos");
 
         jLabel2.setText("Código");
 
@@ -106,6 +110,8 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblConsulta);
 
+        jLabel6.setText("Sigla *");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,38 +119,53 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfdTitulo)
+                    .addComponent(jScrollPane2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(tfdBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBusca))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSair))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnNovo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEditar))
+                                .addComponent(btnEditar)))
+                        .addGap(0, 159, Short.MAX_VALUE))
+                    .addComponent(tfdTitulo)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(0, 106, Short.MAX_VALUE))
+                            .addComponent(tfdSigla))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfdSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(26, 26, 26)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -166,10 +187,10 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnNovo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSair)
-                    .addComponent(btnSalvar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnSair))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,10 +198,12 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            te = (Tipoevento) new GenericoDAO<Tipoevento>(te)
+            tc = (Tipocontato) new GenericoDAO<Tipocontato>(tc)
                     .visualizar((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
-            tfdCodigo.setText(String.valueOf(te.getCodigo()));
-            tfdTitulo.setText(te.getNome());
+            tfdCodigo.setText(String.valueOf(tc.getCodigo()));
+            tfdTitulo.setText(tc.getNome());
+            tfdSigla.setText(tc.getSigla());
+            txaDescricao.setText(tc.getDescricao());
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");
         }
@@ -195,16 +218,17 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        new TabelaTiposDAO(te).PopulaTabela(tblConsulta, tfdBuscar.getText());
+        new TabelaTiposDAO(tc).PopulaTabela(tblConsulta, "");
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (!tfdTitulo.getText().trim().equals("")) {
+        if (!tfdTitulo.getText().trim().equals("") && !tfdSigla.getText().trim().equals("__")) {
+            System.out.println(tc);
+            tc.setNome(tfdTitulo.getText());
+            tc.setSigla(tfdSigla.getText());
+            tc.setDescricao(txaDescricao.getText());
 
-            te.setNome(tfdTitulo.getText());
-            te.setDescricao(txaDescricao.getText());
-
-            JOptionPane.showMessageDialog(null, new GenericoDAO<Tipoevento>(te).gravar());
+            JOptionPane.showMessageDialog(null, new GenericoDAO<Tipocontato>(tc).gravar());
 
             resetField();
         } else {
@@ -223,11 +247,13 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblConsulta;
     private javax.swing.JTextField tfdBuscar;
     private javax.swing.JTextField tfdCodigo;
+    private javax.swing.JFormattedTextField tfdSigla;
     private javax.swing.JTextField tfdTitulo;
     private javax.swing.JTextArea txaDescricao;
     // End of variables declaration//GEN-END:variables

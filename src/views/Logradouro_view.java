@@ -1,9 +1,8 @@
 package views;
 
 import dao.GenericoDAO;
-import dao.LogradouroDAO;
 import Entitys.Logradouro;
-import entitys.Logradouro;
+import dao.TabelaTiposDAO;
 import javax.swing.JOptionPane;
 import utils.Formatacao;
 
@@ -24,7 +23,7 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
         tfdSigla.requestFocus(true);
         log = new Logradouro();
         tfdCodigo.setText(String.valueOf(new GenericoDAO<Logradouro>(log).ProximoCodigo()));
-        new LogradouroDAO(log).PopulaTabela(tblConsulta, "");
+        new TabelaTiposDAO(log).PopulaTabela(tblConsulta, "");
     }
 
     @SuppressWarnings("unchecked")
@@ -228,7 +227,7 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        new LogradouroDAO(this.log).PopulaTabela(tblConsulta, tfdBuscar.getText());
+        new TabelaTiposDAO(this.log).PopulaTabela(tblConsulta, tfdBuscar.getText());
     }//GEN-LAST:event_btnBuscaActionPerformed
 
 

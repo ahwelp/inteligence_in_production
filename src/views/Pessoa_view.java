@@ -4,7 +4,7 @@ import classes.Negocio.Usuario;
 import classes.Pessoa.Fisica;
 import classes.Pessoa.Juridica;
 import dao.ContatoDAO;
-import dao.TipoEventoDAO;
+import dao.TabelaTiposDAO;
 import dao.EnderecosDAO;
 import dao.UsuarioDAO;
 import javax.swing.JOptionPane;
@@ -57,7 +57,7 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
                     rbtF.setSelected(true);
                     rbtM.setSelected(false);
                 }
-                new TipoEventoDAO().popularTabela(tblEnderecos, usuario);
+                new TabelaTiposDAO().popularTabela(tblEnderecos, usuario);
                 new ContatoDAO().popularTabela(tblContatos, usuario);
 
                 tfdCargo.setText(user.getCargo());
@@ -349,10 +349,10 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
                     JOptionPane.WARNING_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
             if (retorno == JOptionPane.OK_OPTION) {
                 int id = Integer.parseInt(tblEndereco.getValueAt(tblEnderecos.getSelectedRow(), 0).toString());
-                new TipoEventoDAO().excluir(id);
+                new TabelaTiposDAO().excluir(id);
                 new EnderecosDAO().excluir(id);
 
-                new TipoEventoDAO().popularTabela(tblEnderecos, codUsuario);
+                new TabelaTiposDAO().popularTabela(tblEnderecos, codUsuario);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");

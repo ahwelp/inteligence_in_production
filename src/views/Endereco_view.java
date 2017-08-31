@@ -8,7 +8,7 @@ import classes.Pessoa.Pessoa;
 import dao.CidadeDAO;
 import dao.CombosDAO;
 import dao.ContratanteDAO;
-import dao.TipoEventoDAO;
+import dao.TabelaTiposDAO;
 import dao.EnderecosDAO;
 import dao.LogradouroDAO;
 import dao.UsuarioDAO;
@@ -270,17 +270,17 @@ public class Endereco_view extends javax.swing.JInternalFrame {
                 end.setPessoa((Pessoa) new ContratanteDAO().consultarId(codPessoa));
             }
 
-            if (new EnderecosDAO().salvar(ends) == null && new TipoEventoDAO().salvar(end) == null) {
+            if (new EnderecosDAO().salvar(ends) == null && new TabelaTiposDAO().salvar(end) == null) {
                 dispose();
                 switch (tela) {
                     case 'u':
-                        new TipoEventoDAO().popularTabela(usuario.tblEnderecos, codPessoa);
+                        new TabelaTiposDAO().popularTabela(usuario.tblEnderecos, codPessoa);
                         break;
                     case 'c':
-                        new TipoEventoDAO().popularTabela(cliente.tblEndereco, codPessoa);
+                        new TabelaTiposDAO().popularTabela(cliente.tblEndereco, codPessoa);
                         break;
                     case 'p':
-                        new TipoEventoDAO().popularTabela(contratado.tblEndereco, codPessoa);
+                        new TabelaTiposDAO().popularTabela(contratado.tblEndereco, codPessoa);
                         break;
                     default:
                         break;

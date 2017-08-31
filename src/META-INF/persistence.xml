@@ -17,7 +17,7 @@
     <class>entitys.Estado</class>
     <class>Entitys.Tipoendereco1</class>
     <class>Entitys.Tipoevento1</class>
-    <class>Entitys.Evento1</class>
+    <class>Entitys.Evento</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/iip"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

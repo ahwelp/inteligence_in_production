@@ -4,6 +4,8 @@ import entitys.Logradouro;
 import java.util.ArrayList;
 import utils.HibernateUtil;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -79,6 +81,8 @@ public class GenericoDAO<T> {
         }
         return lista;
     }
+    
+
 
 //
 //    public int ProximoCodigo() {

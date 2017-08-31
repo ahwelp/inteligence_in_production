@@ -2,6 +2,7 @@ package views;
 
 import entitys.Logradouro;
 import dao.GenericoDAO;
+import java.util.ArrayList;
 //import dao.LogradouroDAO;
 import javax.swing.JOptionPane;
 
@@ -13,6 +14,12 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
 
     public Logradouro_view() {
         initComponents();
+                
+        ArrayList lista = new ArrayList<>();
+        
+   //     loDAO.listar(ui, title)
+
+      // loDAO.listar(logradouro)
       //  new LogradouroDAO().popularTabela(tblConsulta, "");
       //  tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
     }
@@ -212,24 +219,15 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
         if (!tfdNome.getText().trim().equals("") && !ftfSigla.getText().trim().equals("__")) {
 
             Logradouro lo = new Logradouro();
-            lo.setIdlogradouro(2);
+            //lo.setIdlogradouro(2);
             lo.setNome(tfdNome.getText());
             lo.setSigla(ftfSigla.getText());
 
           retorno = loDAO.gravar(lo);
 
 
-            if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-         //       tfdCodigo.setText(Integer.toString(loDAO.pegaProximoCodigo()));
-                ftfSigla.setText("");
-                tfdNome.setText("");
-                tfdNome.requestFocus();
-           //     loDAO.popularTabela(tblConsulta, "");
-            } else {
-                JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n"
-                        + "Erro técnico: \n" + retorno);
-            }
+          JOptionPane.showMessageDialog(null, retorno);
+         
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
         }

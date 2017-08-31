@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 19/08/2017 10:43:21 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 03:37:33 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -23,21 +23,21 @@ import javax.persistence.Table;
 public class Cidade  implements java.io.Serializable {
 
 
-     private int idcidade;
+     private int codigo;
      private Estado estado;
      private String nome;
-     private Set enderecos = new HashSet(0);
+     private Set<Endereco> enderecos = new HashSet<Endereco>(0);
 
     public Cidade() {
     }
 
 	
-    public Cidade(int idcidade, Estado estado) {
-        this.idcidade = idcidade;
+    public Cidade(int codigo, Estado estado) {
+        this.codigo = codigo;
         this.estado = estado;
     }
-    public Cidade(int idcidade, Estado estado, String nome, Set enderecos) {
-       this.idcidade = idcidade;
+    public Cidade(int codigo, Estado estado, String nome, Set<Endereco> enderecos) {
+       this.codigo = codigo;
        this.estado = estado;
        this.nome = nome;
        this.enderecos = enderecos;
@@ -46,13 +46,13 @@ public class Cidade  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="idcidade", unique=true, nullable=false)
-    public int getIdcidade() {
-        return this.idcidade;
+    @Column(name="codigo", unique=true, nullable=false)
+    public int getCodigo() {
+        return this.codigo;
     }
     
-    public void setIdcidade(int idcidade) {
-        this.idcidade = idcidade;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
@@ -76,11 +76,11 @@ public class Cidade  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="cidade")
-    public Set getEnderecos() {
+    public Set<Endereco> getEnderecos() {
         return this.enderecos;
     }
     
-    public void setEnderecos(Set enderecos) {
+    public void setEnderecos(Set<Endereco> enderecos) {
         this.enderecos = enderecos;
     }
 

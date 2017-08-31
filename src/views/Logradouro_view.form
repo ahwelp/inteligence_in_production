@@ -45,7 +45,7 @@
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="ftfSigla" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tfdSigla" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -70,7 +70,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tfdCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ftfSigla" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfdSigla" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -88,7 +88,7 @@
                   <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSair" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -141,7 +141,7 @@
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftfSigla">
+    <Component class="javax.swing.JFormattedTextField" name="tfdSigla">
     </Component>
     <Component class="javax.swing.JTextField" name="tfdNome">
     </Component>
@@ -157,7 +157,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jScrollPane1" alignment="1" pref="324" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="tdfBuscar" max="32767" attributes="0"/>
+                  <Component id="tfdBuscar" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnBusca" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -175,7 +175,7 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tdfBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfdBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBusca" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -190,7 +190,7 @@
             <Property name="text" type="java.lang.String" value="Procurar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tdfBuscar">
+        <Component class="javax.swing.JTextField" name="tfdBuscar">
         </Component>
         <Component class="javax.swing.JButton" name="btnBusca">
           <Properties>

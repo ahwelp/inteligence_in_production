@@ -4,29 +4,27 @@ import dao.GenericoDAO;
 import dao.PaisDAO;
 import javax.swing.JOptionPane;
 import utils.Formatacao;
-import entitys.Pais;
+import Entitys.Pais;
 import utils.Support;
 
 public class Pais_view extends javax.swing.JInternalFrame {
 
-    int codigo = 0;
-    GenericoDAO gnDAO = new GenericoDAO<Pais>();
     Pais pa = new Pais();
 
     public Pais_view() {
         initComponents();
+        Formatacao.reformatarSigla(tfdSigla);
+        resetField();
+    }
 
-        tfdCodigo.setText("23");
-        ftfSigla.requestFocus();
-        Formatacao.reformatarSigla(ftfSigla);
-        tfdCodigo.setText(String.valueOf(gnDAO.ProximoCodigo(pa, "")));
-
-        Object[][] cabecalho = {
-            {"Código", pa.getCodigo()},
-            {"Titulo", pa.getNome()}
-        };
-
-        new PaisDAO.PopulaTabela(tblConsulta, pa, cabecalho, "");
+    public void resetField() {
+        tfdSigla.setText("");
+        tfdNome.setText("");
+        tfdBuscar.setText("");
+        tfdSigla.requestFocus(true);
+        pa = new Pais();
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Pais>(pa).ProximoCodigo()));
+        new PaisDAO(pa).PopulaTabela(tblConsulta, "");
     }
 
     @SuppressWarnings("unchecked")
@@ -43,13 +41,13 @@ public class Pais_view extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tdfBuscar = new javax.swing.JTextField();
+        tfdBuscar = new javax.swing.JTextField();
         btnBusca = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsulta = new javax.swing.JTable();
         btnSalvar = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
-        ftfSigla = new javax.swing.JFormattedTextField();
+        tfdSigla = new javax.swing.JFormattedTextField();
 
         setTitle("Países");
 
@@ -99,11 +97,6 @@ public class Pais_view extends javax.swing.JInternalFrame {
 
             }
         ));
-        tblConsulta.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tblConsultaPropertyChange(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblConsulta);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -112,7 +105,7 @@ public class Pais_view extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(tdfBuscar)
+                .addComponent(tfdBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBusca)
                 .addGap(6, 6, 6))
@@ -127,7 +120,7 @@ public class Pais_view extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tdfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBusca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,7 +166,7 @@ public class Pais_view extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addGap(119, 119, 119))
-                                .addComponent(ftfSigla))))
+                                .addComponent(tfdSigla))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -190,7 +183,7 @@ public class Pais_view extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftfSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfdSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,31 +199,26 @@ public class Pais_view extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnSair))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tblConsultaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblConsultaPropertyChange
-
-    }//GEN-LAST:event_tblConsultaPropertyChange
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        codigo = 0;
-        ftfSigla.setText("");
-        tfdNome.setText("");
+        resetField();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            codigo = pa.getCodigo();
-            tfdCodigo.setText(String.valueOf(codigo));
-            ftfSigla.setText(pa.getSigla());
+            pa = (Pais) new GenericoDAO<Pais>(pa).visualizar((int) tblConsulta.getValueAt(
+                    tblConsulta.getSelectedRow(), 0));
+            tfdCodigo.setText(String.valueOf(pa.getCodigo()));
+            tfdSigla.setText(pa.getSigla());
             tfdNome.setText(pa.getNome());
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para edição!");
@@ -238,33 +226,18 @@ public class Pais_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
+        new PaisDAO(pa).PopulaTabela(tblConsulta, tfdBuscar.getText());
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        String retorno = null;
-        if (!tfdNome.getText().trim().equals("") && !ftfSigla.getText().trim().equals("__")) {
+        if (!tfdNome.getText().trim().equals("") && !tfdSigla.getText().trim().equals("__")) {
 
             pa.setNome(tfdNome.getText());
-            pa.setSigla(ftfSigla.getText());
+            pa.setSigla(tfdSigla.getText());
 
-            if (codigo == 0) {
-                System.out.println(pa.toString());
-                retorno = gnDAO.gravar(pa);
+            JOptionPane.showMessageDialog(null, new GenericoDAO<Pais>(pa).gravar());
 
-                for (Object o : gnDAO.listar(pa, "")) {
-                    Pais s = (Pais) o;
-                    System.out.print("id: " + s.getCodigo() + " ");
-                    System.out.println("nome: " + s.getNome());
-                }
-            } else {
-                pa.setCodigo(codigo);
-                retorno = gnDAO.atualizar(pa);
-            }
-
-            JOptionPane.showMessageDialog(null, retorno);
-            ftfSigla.setText("");
-            tfdNome.setText("");
-            tfdNome.requestFocus();
+            resetField();
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
         }
@@ -287,7 +260,6 @@ public class Pais_view extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JFormattedTextField ftfSigla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -295,8 +267,9 @@ public class Pais_view extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblConsulta;
-    private javax.swing.JTextField tdfBuscar;
+    private javax.swing.JTextField tfdBuscar;
     private javax.swing.JTextField tfdCodigo;
     private javax.swing.JTextField tfdNome;
+    private javax.swing.JFormattedTextField tfdSigla;
     // End of variables declaration//GEN-END:variables
 }

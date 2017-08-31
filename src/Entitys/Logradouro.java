@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 19/08/2017 10:43:21 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 03:37:33 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -21,20 +21,20 @@ import javax.persistence.Table;
 public class Logradouro  implements java.io.Serializable {
 
 
-     private int idlogradouro;
+     private int codigo;
      private String nome;
      private String sigla;
-     private Set enderecos = new HashSet(0);
+     private Set<Endereco> enderecos = new HashSet<Endereco>(0);
 
     public Logradouro() {
     }
 
 	
-    public Logradouro(int idlogradouro) {
-        this.idlogradouro = idlogradouro;
+    public Logradouro(int codigo) {
+        this.codigo = codigo;
     }
-    public Logradouro(int idlogradouro, String nome, String sigla, Set enderecos) {
-       this.idlogradouro = idlogradouro;
+    public Logradouro(int codigo, String nome, String sigla, Set<Endereco> enderecos) {
+       this.codigo = codigo;
        this.nome = nome;
        this.sigla = sigla;
        this.enderecos = enderecos;
@@ -43,13 +43,13 @@ public class Logradouro  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="idlogradouro", unique=true, nullable=false)
-    public int getIdlogradouro() {
-        return this.idlogradouro;
+    @Column(name="codigo", unique=true, nullable=false)
+    public int getCodigo() {
+        return this.codigo;
     }
     
-    public void setIdlogradouro(int idlogradouro) {
-        this.idlogradouro = idlogradouro;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     
@@ -73,11 +73,11 @@ public class Logradouro  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="logradouro")
-    public Set getEnderecos() {
+    public Set<Endereco> getEnderecos() {
         return this.enderecos;
     }
     
-    public void setEnderecos(Set enderecos) {
+    public void setEnderecos(Set<Endereco> enderecos) {
         this.enderecos = enderecos;
     }
 

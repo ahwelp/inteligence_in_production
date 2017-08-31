@@ -1,16 +1,27 @@
 package views;
 
+import dao.GenericoDAO;
+import dao.TipoEventoDAO;
+import Entitys.Endereco;
+import Entitys.Tipoevento;
 import javax.swing.JOptionPane;
 
-public class TipoContato_view extends javax.swing.JInternalFrame {
+public class TipoEvento_view extends javax.swing.JInternalFrame {
 
-    boolean edit = false;
-    
+    Tipoevento te = new Tipoevento();
 
-    public TipoContato_view() {
+    public TipoEvento_view() {
         initComponents();
-        tfdCodigo.setText(String.valueOf(addDAO.pegaProximoCodigo()));
-        addDAO.popularTabela(tblConsulta, "");
+        resetField();
+    }
+
+    public void resetField() {
+        tfdTitulo.setText("");
+        tfdBuscar.setText("");
+        tfdTitulo.requestFocus(true);
+        te = new Tipoevento();
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Endereco>(te).ProximoCodigo()));
+        new TipoEventoDAO(te).PopulaTabela(tblConsulta, "");
     }
 
     @SuppressWarnings("unchecked")
@@ -34,7 +45,7 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsulta = new javax.swing.JTable();
 
-        setTitle("Tipo de contatos");
+        setTitle("Tipo de eventos");
 
         jLabel2.setText("Código");
 
@@ -102,29 +113,29 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(tfdTitulo)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(tfdBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBusca))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSair))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNovo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEditar))
-                            .addComponent(tfdCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 147, Short.MAX_VALUE))
-                    .addComponent(tfdTitulo))
+                            .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -155,9 +166,9 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnNovo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnSair))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSair)
+                    .addComponent(btnSalvar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -166,11 +177,10 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            Tipos tipoAtivo = (Tipos) addDAO.consultarId((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
-            tfdCodigo.setText(String.valueOf(tipoAtivo.getCodigo()));
-            tfdTitulo.setText(tipoAtivo.getTitulo());
-            txaDescricao.setText(tipoAtivo.getDescricao());
-            codAdd = tipoAtivo.getCodigo();
+            te = (Tipoevento) new GenericoDAO<Tipoevento>(te)
+                    .visualizar((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
+            tfdCodigo.setText(String.valueOf(te.getCodigo()));
+            tfdTitulo.setText(te.getNome());
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");
         }
@@ -181,39 +191,24 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        codAdd = 0;
-        tfdCodigo.setText(String.valueOf(addDAO.pegaProximoCodigo()));
-        tfdTitulo.setText("");
-        txaDescricao.setText("");
+        resetField();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        addDAO.popularTabela(tblConsulta, tfdBuscar.getText());
+        new TipoEventoDAO(te).PopulaTabela(tblConsulta, tfdBuscar.getText());
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Tipos add = new Tipos();
-        add.setCodigo(Integer.valueOf(tfdCodigo.getText()));
-        add.setTitulo(tfdTitulo.getText());
-        add.setDescricao(txaDescricao.getText());
+        if (!tfdTitulo.getText().trim().equals("")) {
 
-        String retorno = null;
-        if (codAdd == 0) {
-            retorno = addDAO.salvar(add);
-        } else {
-            retorno = addDAO.atualizar(add);
-        }
+            te.setNome(tfdTitulo.getText());
+            te.setDescricao(txaDescricao.getText());
 
-        if (retorno == null) {
-            JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-            addDAO.popularTabela(tblConsulta, "");
-            codAdd = 0;
-            tfdCodigo.setText(String.valueOf(addDAO.pegaProximoCodigo()));
-            tfdTitulo.setText("");
-            txaDescricao.setText("");
+            JOptionPane.showMessageDialog(null, new GenericoDAO<Tipoevento>(te).gravar());
+
+            resetField();
         } else {
-            JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n"
-                    + "Erro técnico: \n" + retorno);
+            JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

@@ -1,13 +1,16 @@
 package Entitys;
-// Generated 19/08/2017 10:43:21 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 03:37:33 by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,7 +23,7 @@ import javax.persistence.Table;
 public class Endereco  implements java.io.Serializable {
 
 
-     private int idendereco;
+     private int codigo;
      private Cidade cidade;
      private Logradouro logradouro;
      private String rua;
@@ -28,18 +31,19 @@ public class Endereco  implements java.io.Serializable {
      private String bairro;
      private Integer cep;
      private String complemento;
+     private Set<Evento> eventos = new HashSet<Evento>(0);
 
     public Endereco() {
     }
 
 	
-    public Endereco(int idendereco, Cidade cidade, Logradouro logradouro) {
-        this.idendereco = idendereco;
+    public Endereco(int codigo, Cidade cidade, Logradouro logradouro) {
+        this.codigo = codigo;
         this.cidade = cidade;
         this.logradouro = logradouro;
     }
-    public Endereco(int idendereco, Cidade cidade, Logradouro logradouro, String rua, Integer numero, String bairro, Integer cep, String complemento) {
-       this.idendereco = idendereco;
+    public Endereco(int codigo, Cidade cidade, Logradouro logradouro, String rua, Integer numero, String bairro, Integer cep, String complemento, Set<Evento> eventos) {
+       this.codigo = codigo;
        this.cidade = cidade;
        this.logradouro = logradouro;
        this.rua = rua;
@@ -47,18 +51,19 @@ public class Endereco  implements java.io.Serializable {
        this.bairro = bairro;
        this.cep = cep;
        this.complemento = complemento;
+       this.eventos = eventos;
     }
    
      @Id 
 
     
-    @Column(name="idendereco", unique=true, nullable=false)
-    public int getIdendereco() {
-        return this.idendereco;
+    @Column(name="codigo", unique=true, nullable=false)
+    public int getCodigo() {
+        return this.codigo;
     }
     
-    public void setIdendereco(int idendereco) {
-        this.idendereco = idendereco;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
@@ -129,6 +134,15 @@ public class Endereco  implements java.io.Serializable {
     
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="endereco")
+    public Set<Evento> getEventos() {
+        return this.eventos;
+    }
+    
+    public void setEventos(Set<Evento> eventos) {
+        this.eventos = eventos;
     }
 
 

@@ -1,110 +1,107 @@
 package dao;
 
-import entitys.Cidade;
-import entitys.Pais;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import utils.HibernateUtil;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import net.sf.ehcache.search.expression.Between;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * @author Portella, Rodolfo <rodolfosportella@gmail.com>
+ * @param <T>
  */
 public class GenericoDAO<T> {
 
-    public String gravar(Object obj) {
+    private final Object obj;
+    private final Session s;
+
+    public GenericoDAO(Object obj) {
+        s = HibernateUtil.getSession();
+        s.beginTransaction();
+        this.obj = obj;
+    }
+
+    public String gravar() {
         try {
-            Session s = HibernateUtil.getSessionFactory().openSession();
-            s.beginTransaction();
-            s.save(obj);
+            s.saveOrUpdate(this.obj);
             s.getTransaction().commit();
-            s.close();
             return "Gravado com sucesso!";
         } catch (Exception e) {
-            System.out.println(e);
+            s.getTransaction().rollback();
+            System.out.println("Erro ao gravar: " + e.getMessage());
             return "Houve algum problema para gravado!";
+        } finally {
+            s.close();
         }
     }
 
-    public String atualizar(Object obj) {
+    public String excluir() {
         try {
-            Session s = HibernateUtil.getSessionFactory().getCurrentSession();
-            s.beginTransaction();
-            s.update(obj);
-            s.getTransaction().commit();
-            return "Atualizado com sucesso!";
-        } catch (Exception e) {
-            System.out.println(e);
-            return "Houve algum problema para atualizar!";
-        }
-    }
-
-    public String excluir(Object obj) {
-        try {
-            Session s = HibernateUtil.getSessionFactory().getCurrentSession();
-            s.beginTransaction();
-            s.delete(obj);
+            s.delete(this.obj);
             s.getTransaction().commit();
             return "Excluido com sucesso!";
         } catch (Exception e) {
-            System.out.println(e);
+            s.getTransaction().rollback();
+            System.out.println("Erro ao excluir: " + e.getMessage());
             return "Houve algum problema para excluir!";
+        } finally {
+            s.close();
         }
     }
 
-    public Object visualizar(int Cod) {
-        return null;
-    }
-
-    public ArrayList<T> listar(T obj, String condicao) {
-        List resultado = null;
-
-        ArrayList<T> lista = new ArrayList<>();
+    public T visualizar(int cod) {
         try {
-            Session s = HibernateUtil.getSessionFactory().openSession();
-            s.beginTransaction();
-            String sql = "from " + obj.getClass().getName()
-                    + ((condicao.isEmpty()) ? "" : (" where " + condicao));
-            org.hibernate.Query q = s.createQuery(sql);
-
-            resultado = q.list();
-
-            for (Object o : resultado) {
-                T object = ((T) ((Object) o));
-                lista.add(object);
-            }
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
+            return (T) s.createCriteria(this.obj.getClass())
+                    .add(Restrictions.eq("codigo", cod))
+                    .uniqueResult();
+        } catch (Exception e) {
+            s.getTransaction().rollback();
+            System.out.println("Erro ao visualizar: " + e.getMessage());
+            return null;
+        } finally {
+            s.close();
         }
-        return lista;
     }
 
-    public int ProximoCodigo(T obj, String condicao) {
+    public List listar() {
         try {
-            Session s = HibernateUtil.getSessionFactory().openSession();
-            s.beginTransaction();
-            Criteria criteria = s.createCriteria(obj.getClass());
-
-            int maxId
-                    = (int) criteria.setProjection(Projections.max("codigo"))
-                            .uniqueResult();
-
-            return maxId + 1;
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
+            return s.createCriteria(this.obj.getClass())
+                    .list();
+        } catch (Exception e) {
+            s.getTransaction().rollback();
+            System.out.println("Erro ao listar tudo: " + e.getMessage());
+            return null;
+        } finally {
+            s.close();
         }
-        return 00;
     }
 
+    public List Listar(String coluna, String criterio) {
+        try {
+            return s.createCriteria(this.obj.getClass())
+                    .add(Restrictions.like(coluna, "%" + criterio + "%")
+                            .ignoreCase()).list();
+        } catch (Exception e) {
+            s.getTransaction().rollback();
+            System.out.println("Erro ao listar composta: " + e.getMessage());
+            return null;
+        } finally {
+            s.close();
+        }
+    }
+
+    public int ProximoCodigo() {
+        try {
+            return (int) s.createCriteria(this.obj.getClass())
+                    .setProjection(Projections.max("codigo"))
+                    .uniqueResult() + 1;
+        } catch (Exception e) {
+            s.getTransaction().rollback();
+            System.out.println("Erro ao listar tudo: " + e.getMessage());
+            return 0;
+        } finally {
+            s.close();
+        }
+    }
 
 }

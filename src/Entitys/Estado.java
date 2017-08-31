@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 19/08/2017 10:43:21 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 03:37:33 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -23,22 +23,22 @@ import javax.persistence.Table;
 public class Estado  implements java.io.Serializable {
 
 
-     private int idestado;
+     private int codigo;
      private Pais pais;
      private String nome;
      private String uf;
-     private Set cidades = new HashSet(0);
+     private Set<Cidade> cidades = new HashSet<Cidade>(0);
 
     public Estado() {
     }
 
 	
-    public Estado(int idestado, Pais pais) {
-        this.idestado = idestado;
+    public Estado(int codigo, Pais pais) {
+        this.codigo = codigo;
         this.pais = pais;
     }
-    public Estado(int idestado, Pais pais, String nome, String uf, Set cidades) {
-       this.idestado = idestado;
+    public Estado(int codigo, Pais pais, String nome, String uf, Set<Cidade> cidades) {
+       this.codigo = codigo;
        this.pais = pais;
        this.nome = nome;
        this.uf = uf;
@@ -48,13 +48,13 @@ public class Estado  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="idestado", unique=true, nullable=false)
-    public int getIdestado() {
-        return this.idestado;
+    @Column(name="codigo", unique=true, nullable=false)
+    public int getCodigo() {
+        return this.codigo;
     }
     
-    public void setIdestado(int idestado) {
-        this.idestado = idestado;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
@@ -88,11 +88,11 @@ public class Estado  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estado")
-    public Set getCidades() {
+    public Set<Cidade> getCidades() {
         return this.cidades;
     }
     
-    public void setCidades(Set cidades) {
+    public void setCidades(Set<Cidade> cidades) {
         this.cidades = cidades;
     }
 

@@ -1,16 +1,17 @@
 package dao;
 
+import Entitys.Logradouro;
 import Entitys.Pais;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class PaisDAO extends GenericoDAO<Object> {
+public class LogradouroDAO extends GenericoDAO<Object> {
 
     Pais pa = new Pais();
 
-    public PaisDAO(Object obj) {
+    public LogradouroDAO(Object obj) {
         super(obj);
     }
 
@@ -32,7 +33,7 @@ public class PaisDAO extends GenericoDAO<Object> {
         try {
             int row = 0;
             for (Object o : resultQuery) {
-                Pais s = (Pais) o;
+                Logradouro s = (Logradouro) o;
                 dadosTabela[row][0] = s.getCodigo();
                 dadosTabela[row][1] = s.getNome();
                 dadosTabela[row][2] = s.getSigla();

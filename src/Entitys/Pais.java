@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 19/08/2017 10:43:21 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 03:37:33 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -21,20 +21,20 @@ import javax.persistence.Table;
 public class Pais  implements java.io.Serializable {
 
 
-     private int idpais;
+     private int codigo;
      private String nome;
      private String sigla;
-     private Set estados = new HashSet(0);
+     private Set<Estado> estados = new HashSet<Estado>(0);
 
     public Pais() {
     }
 
 	
-    public Pais(int idpais) {
-        this.idpais = idpais;
+    public Pais(int codigo) {
+        this.codigo = codigo;
     }
-    public Pais(int idpais, String nome, String sigla, Set estados) {
-       this.idpais = idpais;
+    public Pais(int codigo, String nome, String sigla, Set<Estado> estados) {
+       this.codigo = codigo;
        this.nome = nome;
        this.sigla = sigla;
        this.estados = estados;
@@ -43,13 +43,13 @@ public class Pais  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="idpais", unique=true, nullable=false)
-    public int getIdpais() {
-        return this.idpais;
+    @Column(name="codigo", unique=true, nullable=false)
+    public int getCodigo() {
+        return this.codigo;
     }
     
-    public void setIdpais(int idpais) {
-        this.idpais = idpais;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     
@@ -73,11 +73,11 @@ public class Pais  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="pais")
-    public Set getEstados() {
+    public Set<Estado> getEstados() {
         return this.estados;
     }
     
-    public void setEstados(Set estados) {
+    public void setEstados(Set<Estado> estados) {
         this.estados = estados;
     }
 

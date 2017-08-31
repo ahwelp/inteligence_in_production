@@ -3,6 +3,7 @@ package views;
 import dao.GenericoDAO;
 import dao.LogradouroDAO;
 import Entitys.Logradouro;
+import entitys.Logradouro;
 import javax.swing.JOptionPane;
 import utils.Formatacao;
 

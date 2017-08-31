@@ -4,6 +4,8 @@ import dao.GenericoDAO;
 import dao.TipoEventoDAO;
 import Entitys.Endereco;
 import Entitys.Tipoevento;
+import entitys.Endereco;
+import entitys.Tipoevento;
 import javax.swing.JOptionPane;
 
 public class TipoEvento_view extends javax.swing.JInternalFrame {

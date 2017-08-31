@@ -56,5 +56,13 @@ Contributor(s):
     <mapping class="Entitys.Cidade"/>
     <mapping class="Entitys.Logradouro"/>
     <mapping class="Entitys.Pais"/>
+    <mapping class="entitys.Estado"/>
+    <mapping class="entitys.Tipoendereco"/>
+    <mapping class="entitys.Pais"/>
+    <mapping class="entitys.Endereco"/>
+    <mapping class="entitys.Logradouro"/>
+    <mapping class="entitys.Tipoevento"/>
+    <mapping class="entitys.Evento"/>
+    <mapping class="entitys.Cidade"/>
   </session-factory>
 </hibernate-configuration>

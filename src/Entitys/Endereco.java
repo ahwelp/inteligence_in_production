@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 31/08/2017 03:42:18 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 08:55:05 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -67,7 +67,7 @@ public class Endereco  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="idcidade", nullable=false)
+    @JoinColumn(name="cidade", nullable=false)
     public Cidade getCidade() {
         return this.cidade;
     }
@@ -77,7 +77,7 @@ public class Endereco  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="idlogradouro", nullable=false)
+    @JoinColumn(name="logradouro", nullable=false)
     public Logradouro getLogradouro() {
         return this.logradouro;
     }

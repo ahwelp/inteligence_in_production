@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 31/08/2017 03:42:18 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 08:55:05 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -58,7 +58,7 @@ public class Estado  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="idpais", nullable=false)
+    @JoinColumn(name="pais", nullable=false)
     public Pais getPais() {
         return this.pais;
     }

@@ -1,14 +1,14 @@
 package dao;
 
-import Entitys.Tipoevento;
+import Entitys.Tipocontato;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class TipoEventoDAO extends GenericoDAO<Object> {
+public class TipoContatoDAO extends GenericoDAO<Object> {
 
-    public TipoEventoDAO(Object obj) {
+    public TipoContatoDAO(Object obj) {
         super(obj);
     }
 
@@ -30,7 +30,7 @@ public class TipoEventoDAO extends GenericoDAO<Object> {
         try {
             int row = 0;
             for (Object o : resultQuery) {
-                Tipoevento s = (Tipoevento) o;
+                Tipocontato s = (Tipocontato) o;
                 dadosTabela[row][0] = s.getCodigo();
                 dadosTabela[row][1] = s.getNome();
                 row++;

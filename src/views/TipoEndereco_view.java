@@ -2,7 +2,7 @@ package views;
 
 import Entitys.Tipocontato;
 import dao.GenericoDAO;
-import dao.TabelaTiposDAO;
+import dao.TipoEventoDAO;
 import javax.swing.JOptionPane;
 import utils.Formatacao;
 
@@ -23,7 +23,7 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
         tfdSigla.requestFocus(true);
         tc = new Tipocontato();
         tfdCodigo.setText(String.valueOf(new GenericoDAO<Tipocontato>(tc).ProximoCodigo()));
-        new TabelaTiposDAO(tc).PopulaTabela(tblConsulta, "");
+        new TipoEventoDAO(tc).PopulaTabela(tblConsulta, "");
     }
 
     @SuppressWarnings("unchecked")
@@ -218,7 +218,7 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        new TabelaTiposDAO(tc).PopulaTabela(tblConsulta, "");
+        new TipoEventoDAO(tc).PopulaTabela(tblConsulta, "");
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed

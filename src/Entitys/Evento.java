@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 31/08/2017 09:47:48 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 09:53:48 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -25,7 +25,7 @@ public class Evento  implements java.io.Serializable {
 
      private int codigo;
      private Endereco endereco;
-     privateTipoevento1o tipoevento;
+     private Tipoevento tipoevento;
      private Date horainicio;
      private Date horatermino;
      private String descricao;
@@ -34,12 +34,12 @@ public class Evento  implements java.io.Serializable {
     }
 
 	
-    public Evento(int codigo, Endereco endereco,Tipoevento1o tipoevento) {
+    public Evento(int codigo, Endereco endereco, Tipoevento tipoevento) {
         this.codigo = codigo;
         this.endereco = endereco;
         this.tipoevento = tipoevento;
     }
-    public Evento(int codigo, Endereco endereco,Tipoevento1o tipoevento, Date horainicio, Date horatermino, String descricao) {
+    public Evento(int codigo, Endereco endereco, Tipoevento tipoevento, Date horainicio, Date horatermino, String descricao) {
        this.codigo = codigo;
        this.endereco = endereco;
        this.tipoevento = tipoevento;
@@ -72,11 +72,11 @@ public class Evento  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="tipoevento", nullable=false)
-    publicTipoevento1o getTipoevento() {
+    public Tipoevento getTipoevento() {
         return this.tipoevento;
     }
     
-    public void setTipoeventoTipoevento1o tipoevento) {
+    public void setTipoevento(Tipoevento tipoevento) {
         this.tipoevento = tipoevento;
     }
 

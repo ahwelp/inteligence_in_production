@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 31/08/2017 09:47:48 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 09:53:48 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -31,7 +31,7 @@ public class Endereco  implements java.io.Serializable {
      private String bairro;
      private Integer cep;
      private String complemento;
-     private SetEvento1o> eventos = new HashSetEvento1o>(0);
+     private Set<Evento> eventos = new HashSet<Evento>(0);
 
     public Endereco() {
     }
@@ -42,7 +42,7 @@ public class Endereco  implements java.io.Serializable {
         this.cidade = cidade;
         this.logradouro = logradouro;
     }
-    public Endereco(int codigo, Cidade cidade, Logradouro logradouro, String rua, Integer numero, String bairro, Integer cep, String complemento, SetEvento1o> eventos) {
+    public Endereco(int codigo, Cidade cidade, Logradouro logradouro, String rua, Integer numero, String bairro, Integer cep, String complemento, Set<Evento> eventos) {
        this.codigo = codigo;
        this.cidade = cidade;
        this.logradouro = logradouro;
@@ -137,11 +137,11 @@ public class Endereco  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="endereco")
-    public SetEvento1o> getEventos() {
+    public Set<Evento> getEventos() {
         return this.eventos;
     }
     
-    public void setEventos(SetEvento1o> eventos) {
+    public void setEventos(Set<Evento> eventos) {
         this.eventos = eventos;
     }
 

@@ -179,7 +179,7 @@ public class Cidade_view extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        String[][] criterios = {{"contains", "nome", "%" + tfdBuscar.getText() + "%"}, {"node", "estado", "e"}, {"equal", "e.codigo", String.valueOf(est.getCodigo())}};
+        String[][] criterios = {{"contain", "nome", "%" + tfdBuscar.getText() + "%"}, {"node", "estado", "e"}, {"equal", "e.codigo", String.valueOf(est.getCodigo())}};
         new CidadeDAO(cid).PopulaTabela(tblConsulta, criterios);
     }//GEN-LAST:event_btnBuscaActionPerformed
 

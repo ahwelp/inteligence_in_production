@@ -226,7 +226,7 @@ public class Pais_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        String[][] criterios = {{"contains", "nome", "%" + tfdBuscar.getText() + "%"}};
+        String[][] criterios = {{"contain", "nome", "%" + tfdBuscar.getText() + "%"}};
         new PaisDAO(pa).PopulaTabela(tblConsulta, criterios);
     }//GEN-LAST:event_btnBuscaActionPerformed
 

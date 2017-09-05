@@ -1,41 +1,13 @@
 package views;
 
-import Entitys.Cidade;
-import Entitys.Logradouro;
-import classes.Pessoa.Endereco.Cidade;
-import classes.Pessoa.Endereco.Enderecos;
-import classes.Pessoa.Endereco.Logradouro;
-import classes.Pessoa.Pessoa;
-import dao.CidadeDAO;
-import dao.CombosDAO;
-import dao.ContratanteDAO;
-import dao.TabelaTiposDAO;
-import dao.EnderecosDAO;
-import dao.LogradouroDAO;
-import dao.UsuarioDAO;
 import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
-import support.ComboItens;
 import utils.ComboItens;
-import view.cliente.cliente;
-import view.cliente.usuario;
-import view.contratado;
 
 public class Endereco_view extends javax.swing.JInternalFrame {
 
-    int codPessoa = 0, codEndereco = 0, codPais = 0, codEstado = 0;
-    char tela;
-
-    public Endereco_view(int codPessoa, int codEndereco, char tela) {
-        initComponents();
-        this.codEndereco = codEndereco;
-        this.codPessoa = codPessoa;
-        this.tela = tela;
-
-        tfdCodigo.setText(String.valueOf(new EnderecosDAO().pegaProximoCodigo()));
-
-        new CombosDAO().popularCombo("pais", "idpais, nome", cmbPais, "");
-        new CombosDAO().popularCombo("logradouro", "idlogradouro, nome", cmbLogradouro, "");
+    public Endereco_view() {
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -248,49 +220,7 @@ public class Endereco_view extends javax.swing.JInternalFrame {
                 && !cmbLogradouro.getSelectedItem().equals(item) && !cmbPais.getSelectedItem().equals(item)
                 && !cmbEstado.getSelectedItem().equals(item) && !cmbCidade.getSelectedItem().equals(item)
                 && !cmbTipoEndereco.getSelectedItem().equals(item)) {
-            Enderecos ends = new Enderecos();
-            ends.setCodigo(Integer.valueOf(tfdCodigo.getText()));
-            ends.setEndereco(tfdEndereco.getText());
-            ends.setNum(tfdNum.getText());
-            ends.setComplemento(tfaComplemento.getText());
-            ends.setBairro(tfdBairro.getText());
-            ends.setCep(tfdCep.getText());
-            ComboItens comboLogradouro = (ComboItens) cmbLogradouro.getSelectedItem();
-            ends.setLogradouro((Logradouro) new LogradouroDAO().consultarId(comboLogradouro.getCodigo()));
-            ComboItens comboCidade = (ComboItens) cmbCidade.getSelectedItem();
-            ends.setCidade((Cidade) new CidadeDAO().consultarId(comboCidade.getCodigo()));
-
-            Endereco_view end = new Endereco_view();
-            end.setEndereco(ends);
-            end.setTipoEndereco(cmbTipoEndereco.getSelectedItem().toString());
-
-//             U - Usuario
-//             C - Cliente -> Empresa 
-            if (tela == 'u') {
-                end.setPessoa((Pessoa) new UsuarioDAO().consultarId(codPessoa));
-            } else {
-                end.setPessoa((Pessoa) new ContratanteDAO().consultarId(codPessoa));
-            }
-
-            if (new EnderecosDAO().salvar(ends) == null && new TabelaTiposDAO().salvar(end) == null) {
-                dispose();
-                switch (tela) {
-                    case 'u':
-                        new TabelaTiposDAO().popularTabela(usuario.tblEnderecos, codPessoa);
-                        break;
-                    case 'c':
-                        new TabelaTiposDAO().popularTabela(cliente.tblEndereco, codPessoa);
-                        break;
-                    case 'p':
-                        new TabelaTiposDAO().popularTabela(contratado.tblEndereco, codPessoa);
-                        break;
-                    default:
-                        break;
-                }
-                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Houve algum problema no seu registro, entre em contato com o suporte!");
-            }
+            
 
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
@@ -303,15 +233,13 @@ public class Endereco_view extends javax.swing.JInternalFrame {
 
     private void cmbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstadoItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            ComboItens comboEstado = (ComboItens) cmbEstado.getSelectedItem();
-            new CombosDAO().popularCombo("cidade", "idcidade, nome", cmbCidade, "estados = " + comboEstado.getCodigo());
+            
         }
     }//GEN-LAST:event_cmbEstadoItemStateChanged
 
     private void cmbPaisItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPaisItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            ComboItens comboPais = (ComboItens) cmbPais.getSelectedItem();
-            new CombosDAO().popularCombo("estados", "idestado, nome", cmbEstado, "pais = " + comboPais.getCodigo());
+            
         }
     }//GEN-LAST:event_cmbPaisItemStateChanged
 

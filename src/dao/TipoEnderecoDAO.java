@@ -17,7 +17,7 @@ public class TipoEnderecoDAO extends GenericoDAO<Object> {
         List<String> resultQuery = Listar(criterio);
 
         // cabecalho da tabela
-        Object[] cabecalho = {"Código", "Titulo"};
+        Object[] cabecalho = {"Código", "Sigla", "Titulo"};
 
         // cria matriz de acordo com nº de registros da tabela
         try {
@@ -32,7 +32,8 @@ public class TipoEnderecoDAO extends GenericoDAO<Object> {
             for (Object o : resultQuery) {
                 Tipoendereco s = (Tipoendereco) o;
                 dadosTabela[row][0] = s.getCodigo();
-                dadosTabela[row][1] = s.getNome();
+                dadosTabela[row][1] = s.getSigla();
+                dadosTabela[row][2] = s.getNome();
                 row++;
             }
         } catch (Exception e) {

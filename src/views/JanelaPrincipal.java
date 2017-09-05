@@ -75,6 +75,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem5);
 
         jMenuItem4.setText("Tipo de endereço");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem4);
         jMenu3.add(jSeparator2);
 
@@ -126,6 +131,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         Support.centralizar(jDesktopPane.add(tcv));
         tcv.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TipoEndereco_view tev = new TipoEndereco_view();
+        Support.centralizar(jDesktopPane.add(tev));
+        tev.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments

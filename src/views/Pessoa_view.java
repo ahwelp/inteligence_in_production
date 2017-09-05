@@ -1,77 +1,12 @@
 package views;
 
-import classes.Negocio.Usuario;
-import classes.Pessoa.Fisica;
-import classes.Pessoa.Juridica;
-import dao.ContatoDAO;
-import dao.TabelaTiposDAO;
-import dao.EnderecosDAO;
-import dao.UsuarioDAO;
 import javax.swing.JOptionPane;
-import support.Formatacao;
-import support.support;
-import static view.cliente.cliente.tblEndereco;
-import view.contratado;
-import view.localidades.contatos;
-import view.localidades.endereco;
-import view.telaPrincipal;
-import static view.telaPrincipal.jDesktopPane;
+import utils.Formatacao;
 
 public class Pessoa_view extends javax.swing.JInternalFrame {
 
-    int codEmpresa = 0;
-    int codUsuario = 0;
-
     public Pessoa_view() {
         initComponents();
-    }
-
-    public Pessoa_view(int empresa, int usuario) {
-        initComponents();
-        this.codEmpresa = empresa;
-        this.codUsuario = usuario;
-
-        Formatacao.reformatarData(ftfNascimento);
-        Formatacao.reformatarCpf(ftfCpf);
-
-        if (codUsuario == 0) {
-            tfdCodigo.setText(String.valueOf(new UsuarioDAO().pegaProximoCodigo()));
-        } else {
-            psfAtual.setEnabled(true);
-
-            Fisica pf = (Fisica) new UsuarioDAO().consultarId(codUsuario);
-            Usuario user = (Usuario) new UsuarioDAO().consultarUsuarioId(codUsuario);
-
-            if (pf != null && user != null) {
-                tfdCodigo.setText(Integer.toString(pf.getCodigo()));
-                tfdNome.setText(pf.getNome());
-                tfdApelido.setText(pf.getApelido());
-                tfdRG.setText(pf.getRg());
-                tfdExpedidor.setText(pf.getRgemissao());
-                ftfCpf.setText(pf.getCpf());
-                ftfNascimento.setText(Formatacao.ajustaDataDMA(pf.getNascimento()));
-                if (pf.getGenero() == 'M') {
-                    rbtF.setSelected(false);
-                    rbtM.setSelected(true);
-                } else {
-                    rbtF.setSelected(true);
-                    rbtM.setSelected(false);
-                }
-                new TabelaTiposDAO().popularTabela(tblEnderecos, usuario);
-                new ContatoDAO().popularTabela(tblContatos, usuario);
-
-                tfdCargo.setText(user.getCargo());
-                tfdUltimoLogin.setText(user.getUltimoLogin());
-                tfdUsuario.setText(user.getLogin());
-                cmbStatus.setSelectedIndex((int) user.getStatus() - 1);
-
-                tfdNome.requestFocus();
-            } else {
-                dispose();
-                JOptionPane.showMessageDialog(null, "Erro na consulta!");
-            }
-
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -344,16 +279,7 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
 
     private void btnRemoveEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEnderecoActionPerformed
         if (tblEnderecos.getSelectedRow() != -1) {
-            int retorno = JOptionPane.showInternalConfirmDialog(this, "Deseja remover este endereço?",
-                    "O endereço selecionado será definitivamente removido.",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
-            if (retorno == JOptionPane.OK_OPTION) {
-                int id = Integer.parseInt(tblEndereco.getValueAt(tblEnderecos.getSelectedRow(), 0).toString());
-                new TabelaTiposDAO().excluir(id);
-                new EnderecosDAO().excluir(id);
 
-                new TabelaTiposDAO().popularTabela(tblEnderecos, codUsuario);
-            }
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");
         }
@@ -367,72 +293,9 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (!tfdCodigo.getText().trim().isEmpty() && !tfdNome.getText().trim().isEmpty()
-                && !tfdUsuario.getText().trim().isEmpty() && !tfdCargo.getText().trim().isEmpty()
+                //                && !tfdUsuario.getText().trim().isEmpty() && !tfdCargo.getText().trim().isEmpty()
                 && !Formatacao.removerFormatacao(ftfNascimento.getText()).trim().isEmpty()) {
 
-            Juridica contratante = new Juridica();
-            contratante.setCodigo(codEmpresa);
-
-            Fisica pf = new Fisica();
-            pf.setCodigo(Integer.parseInt(tfdCodigo.getText()));
-            pf.setCpf(Formatacao.removerFormatacao(ftfCpf.getText()));
-            pf.setRg(tfdRG.getText());
-            pf.setRgemissao(tfdExpedidor.getText());
-            pf.setNascimento(Formatacao.ajustaDataAMD(ftfNascimento.getText()));
-            pf.setNome(tfdNome.getText());
-            pf.setApelido(tfdApelido.getText());
-            pf.setGenero(btnGrupo.getSelection().getActionCommand().charAt(0));
-
-            Usuario user = new Usuario();
-            user.setCargo(tfdCargo.getText());
-            user.setLogin(tfdUsuario.getText());
-            user.setSenha(String.valueOf(psfSenha.getPassword()));
-            user.setStatus(Integer.valueOf(cmbStatus.getSelectedItem().toString().split(" - ")[0]));
-            user.setUsuario(pf);
-            user.setContratante(contratante);
-
-            UsuarioDAO userDAO = new UsuarioDAO();
-            String retorno = null;
-            if (codUsuario == 0) {
-                retorno = userDAO.salvar(pf);
-                retorno = userDAO.salvarUsuario(user);
-            } else {
-                pf.setCodigo(codUsuario);
-                retorno = userDAO.atualizar(pf);
-                retorno = userDAO.atualizarUsuario(user);
-                if (psfAtual.getPassword().toString() != "" && psfSenha.getPassword() == psfSenhaRepita.getPassword()) {
-                    retorno = userDAO.atualizarSenha(user.getUsuario().getCodigo(), psfSenhaRepita.getPassword().toString());
-                }
-            }
-
-            if (retorno == null) {
-                if (JOptionPane.showConfirmDialog(null, "Registro salvo com sucesso!\n"
-                        + "Deseja cadastrar mais usuários?", "WARNING",
-                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    tfdCodigo.setText(Integer.toString(userDAO.pegaProximoCodigo()));
-                    tfdNome.setText("");
-                    tfdApelido.setText("");
-                    tfdRG.setText("");
-                    tfdExpedidor.setText("");
-                    ftfCpf.setText("");
-                    ftfNascimento.setText("");
-                    tfdCargo.setText("");
-                    tfdUltimoLogin.setText(Formatacao.getDataAtual());
-                    tfdUltimoLogin.setEnabled(false);
-                    tfdUsuario.setText("");
-                    cmbStatus.setSelectedIndex(0);
-                    psfAtual.setEnabled(false);
-
-                    tfdNome.requestFocus();
-                } else {
-                    dispose();
-                }
-                new UsuarioDAO().popularTabela(cliente.tblUsuarios, codEmpresa);
-                new UsuarioDAO().popularTabela(contratado.tblUsuarios, codEmpresa);
-            } else {
-                JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n"
-                        + "Erro técnico: \n" + retorno);
-            }
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
         }
@@ -443,15 +306,11 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnAdicionaContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaContatoActionPerformed
-        contatos cont = new contatos(codUsuario, 0, 'u');
-        support.centralizar(jDesktopPane.add(cont));
-        cont.setVisible(true);
+
     }//GEN-LAST:event_btnAdicionaContatoActionPerformed
 
     private void btnAdicionaEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaEnderecoActionPerformed
-        endereco tEndereco = new endereco(codUsuario, 0, 'u');
-        support.centralizar(telaPrincipal.jDesktopPane.add(tEndereco));
-        tEndereco.setVisible(true);
+
     }//GEN-LAST:event_btnAdicionaEnderecoActionPerformed
 
 

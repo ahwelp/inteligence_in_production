@@ -208,7 +208,7 @@ public class Estado_view extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        String[][] criterios = {{"contains", "nome", "%" + tfdBuscar.getText() + "%"}, {"node", "pais", "p"}, {"equal", "p.codigo", String.valueOf(pa.getCodigo())}};
+        String[][] criterios = {{"contain", "nome", "%" + tfdBuscar.getText() + "%"}, {"node", "pais", "p"}, {"equal", "p.codigo", String.valueOf(pa.getCodigo())}};
         new EstadoDAO(est).PopulaTabela(tblConsulta, criterios);
     }//GEN-LAST:event_btnBuscaActionPerformed
 

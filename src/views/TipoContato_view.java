@@ -218,13 +218,13 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        String[][] criterio = {{"nome", "%" + tfdBuscar.getText() + "%"}};
+        String[][] criterio = {{"contain", "nome", "%" + tfdBuscar.getText() + "%"}};
         new TipoContatoDAO(tc).PopulaTabela(tblConsulta, criterio);
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (!tfdTitulo.getText().trim().equals("") && !tfdSigla.getText().trim().equals("__")) {
-            System.out.println(tc);
+
             tc.setNome(tfdTitulo.getText());
             tc.setSigla(tfdSigla.getText());
             tc.setDescricao(txaDescricao.getText());

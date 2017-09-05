@@ -1,14 +1,16 @@
 package views;
 
-import Entitys.Tipocontato;
+import Entitys.Tipoendereco;
+import Entitys.Tipoendereco;
 import dao.GenericoDAO;
+import dao.TipoEnderecoDAO;
 import dao.TipoEventoDAO;
 import javax.swing.JOptionPane;
 import utils.Formatacao;
 
 public class TipoEndereco_view extends javax.swing.JInternalFrame {
 
-    Tipocontato tc = new Tipocontato();
+    Tipoendereco te = new Tipoendereco();
 
     public TipoEndereco_view() {
         initComponents();
@@ -21,9 +23,9 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
         tfdTitulo.setText("");
         tfdBuscar.setText("");
         tfdSigla.requestFocus(true);
-        tc = new Tipocontato();
-        tfdCodigo.setText(String.valueOf(new GenericoDAO<Tipocontato>(tc).ProximoCodigo()));
-        new TipoEventoDAO(tc).PopulaTabela(tblConsulta, null);
+        te = new Tipoendereco();
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Tipoendereco>(te).ProximoCodigo()));
+        new TipoEnderecoDAO(te).PopulaTabela(tblConsulta, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +51,7 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         tfdSigla = new javax.swing.JFormattedTextField();
 
-        setTitle("Tipo de contatos");
+        setTitle("Tipo de endereço");
 
         jLabel2.setText("Código");
 
@@ -166,7 +168,6 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(26, 26, 26)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,12 +199,12 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            tc = (Tipocontato) new GenericoDAO<Tipocontato>(tc)
+            te = (Tipoendereco) new GenericoDAO<Tipoendereco>(te)
                     .visualizar((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
-            tfdCodigo.setText(String.valueOf(tc.getCodigo()));
-            tfdTitulo.setText(tc.getNome());
-            tfdSigla.setText(tc.getSigla());
-            txaDescricao.setText(tc.getDescricao());
+            tfdCodigo.setText(String.valueOf(te.getCodigo()));
+            tfdTitulo.setText(te.getNome());
+            tfdSigla.setText(te.getSigla());
+            txaDescricao.setText(te.getDescricao());
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");
         }
@@ -218,18 +219,18 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        String[][] criterio = {{"nome", "%" + tfdBuscar.getText() + "%"}};
-        new TipoEventoDAO(tc).PopulaTabela(tblConsulta, criterio);
+        String[][] criterio = {{"contain", "nome", "%" + tfdBuscar.getText() + "%"}};
+        new TipoEnderecoDAO(te).PopulaTabela(tblConsulta, criterio);
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (!tfdTitulo.getText().trim().equals("") && !tfdSigla.getText().trim().equals("__")) {
-            System.out.println(tc);
-            tc.setNome(tfdTitulo.getText());
-            tc.setSigla(tfdSigla.getText());
-            tc.setDescricao(txaDescricao.getText());
 
-            JOptionPane.showMessageDialog(null, new GenericoDAO<Tipocontato>(tc).gravar());
+            te.setNome(tfdTitulo.getText());
+            te.setSigla(tfdSigla.getText());
+            te.setDescricao(txaDescricao.getText());
+
+            JOptionPane.showMessageDialog(null, new GenericoDAO<Tipoendereco>(te).gravar());
 
             resetField();
         } else {

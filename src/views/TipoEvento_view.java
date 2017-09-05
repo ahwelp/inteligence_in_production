@@ -195,7 +195,7 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        String[][] criterio = {{"nome", "%" + tfdBuscar.getText() + "%"}};
+        String[][] criterio = {{"contain", "nome", "%" + tfdBuscar.getText() + "%"}};
         new TipoEventoDAO(te).PopulaTabela(tblConsulta, criterio);
     }//GEN-LAST:event_btnBuscaActionPerformed
 

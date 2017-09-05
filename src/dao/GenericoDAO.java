@@ -74,7 +74,7 @@ public class GenericoDAO<T> {
      *
      * Tipos de consultas
      *
-     * contains - Verifica com a clausula LIKE [contains, coluna, %valor%]
+     * contain - Verifica com a clausula LIKE [contain, coluna, %valor%]
      * equal - Verifica igualdade [equal, coluna, valor]
      * node - Cria Alias entre tabalas [node, tabela, nomenclatura]
      * order - Ordena os elementos conforme o solicitaddo [order, coluna, asc/desc]
@@ -84,7 +84,7 @@ public class GenericoDAO<T> {
             Criteria criteria = s.createCriteria(this.obj.getClass());
             if (criterios != null) {
                 for (String[] criterio : criterios) {
-                    if (criterio[0].equals("contains")) {
+                    if (criterio[0].equals("contain")) {
                         criteria.add(Restrictions.like(criterio[1], criterio[2]).ignoreCase());
                     } else if (criterio[0] == "equal") {
                         criteria.add(Restrictions.eq(criterio[1], ((criterio[2].matches("^[0-9]*$")) ? Integer.valueOf(criterio[2]) : criterio[2])));

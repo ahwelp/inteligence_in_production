@@ -227,7 +227,7 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        String[][] criterio = {{"nome", "%" + tfdBuscar.getText() + "%"}};
+        String[][] criterio = {{"contain", "nome", "%" + tfdBuscar.getText() + "%"}};
         new LogradouroDAO(this.log).PopulaTabela(tblConsulta, criterio);
     }//GEN-LAST:event_btnBuscaActionPerformed
 

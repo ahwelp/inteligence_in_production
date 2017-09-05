@@ -5,6 +5,7 @@ import Entitys.Pais;
 import dao.EstadoDAO;
 import dao.GenericoDAO;
 import javax.swing.JOptionPane;
+import utils.Support;
 
 public class Estado_view extends javax.swing.JInternalFrame {
 
@@ -207,7 +208,7 @@ public class Estado_view extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        String[][] criterios = {{"node", "pais", "p"}, {"equal", "p.codigo", String.valueOf(pa.getCodigo())}, {"contains", "nome", "%" + tfdBuscar.getText() + "%"}};
+        String[][] criterios = {{"contains", "nome", "%" + tfdBuscar.getText() + "%"}, {"node", "pais", "p"}, {"equal", "p.codigo", String.valueOf(pa.getCodigo())}};
         new EstadoDAO(est).PopulaTabela(tblConsulta, criterios);
     }//GEN-LAST:event_btnBuscaActionPerformed
 
@@ -247,7 +248,13 @@ public class Estado_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-
+        if (tblConsulta.getSelectedRow() != -1) {
+            Cidade_view cidv = new Cidade_view((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
+            Support.centralizar(JanelaPrincipal.jDesktopPane.add(cidv));
+            cidv.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para efetuar a ação!");
+        }
     }//GEN-LAST:event_btnListarActionPerformed
 
 

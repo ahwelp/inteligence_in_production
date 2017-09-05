@@ -1,22 +1,31 @@
 package views;
 
+import Entitys.Cidade;
+import Entitys.Estado;
+import dao.CidadeDAO;
 import dao.GenericoDAO;
-import dao.PaisDAO;
 import javax.swing.JOptionPane;
+import utils.Support;
 
 public class Cidade_view extends javax.swing.JInternalFrame {
 
-    int codEstado, codCidade = 0;
-    GenericoDAO cidDAO = new GenericoDAO();
+    Estado est = new Estado();
+    Cidade cid;
 
     public Cidade_view(int codEstado) {
         initComponents();
+        this.est = new GenericoDAO<Estado>(est).visualizar(codEstado);
+        resetField();
+    }
 
-        String[][] criterio = {{"pais", "%" + tfdBuscar.getText() + "%"}};
-        cidDAO.popularTabela(tblConsulta, "", codEstado);
-
-        this.codEstado = codEstado;
-        tfdCodigo.setText(Integer.toString(cidDAO.pegaProximoCodigo()));
+    public void resetField() {
+        tfdNome.setText("");
+        tfdNome.requestFocus(true);
+        this.cid = new Cidade();
+        cid.setEstado(est);
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Cidade>(cid).ProximoCodigo()));
+        String[][] criterios = {{"node", "estado", "e"}, {"equal", "e.codigo", String.valueOf(est.getCodigo())}};
+        new CidadeDAO(cid).PopulaTabela(tblConsulta, criterios);
     }
 
     @SuppressWarnings("unchecked")
@@ -25,7 +34,7 @@ public class Cidade_view extends javax.swing.JInternalFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tdfBuscar = new javax.swing.JTextField();
+        tfdBuscar = new javax.swing.JTextField();
         btnBusca = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsulta = new javax.swing.JTable();
@@ -36,7 +45,6 @@ public class Cidade_view extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         tfdCodigo = new javax.swing.JTextField();
-        btnListar = new javax.swing.JButton();
         tfdNome = new javax.swing.JTextField();
 
         setTitle("Estados");
@@ -66,7 +74,7 @@ public class Cidade_view extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(tdfBuscar)
+                .addComponent(tfdBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBusca)
                 .addGap(6, 6, 6))
@@ -81,7 +89,7 @@ public class Cidade_view extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tdfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBusca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -121,13 +129,6 @@ public class Cidade_view extends javax.swing.JInternalFrame {
 
         tfdCodigo.setEditable(false);
 
-        btnListar.setText("Listar cidades");
-        btnListar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,9 +145,7 @@ public class Cidade_view extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListar))
+                        .addComponent(btnEditar))
                     .addComponent(tfdNome, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -168,20 +167,20 @@ public class Cidade_view extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
-                    .addComponent(btnEditar)
-                    .addComponent(btnListar))
+                    .addComponent(btnEditar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        cidDAO.popularTabela(tblConsulta, tdfBuscar.getText(), codEstado);
+        String[][] criterios = {{"contains", "nome", "%" + tfdBuscar.getText() + "%"}, {"node", "estado", "e"}, {"equal", "e.codigo", String.valueOf(est.getCodigo())}};
+        new CidadeDAO(cid).PopulaTabela(tblConsulta, criterios);
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -189,63 +188,38 @@ public class Cidade_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        codCidade = 0;
-        tfdCodigo.setText(Integer.toString(cidDAO.pegaProximoCodigo()));
-        tfdNome.setText("");
+        resetField();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            Estado_view es = (Estado_view) cidDAO.consultarId((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
-            codCidade = es.getCodigo();
-            tfdCodigo.setText(String.valueOf(codCidade));
-            tfdNome.setText(es.getNome());
+            this.cid = (Cidade) new GenericoDAO<Cidade>(cid).visualizar((int) tblConsulta.getValueAt(
+                    tblConsulta.getSelectedRow(), 0));
+            tfdCodigo.setText(String.valueOf(cid.getCodigo()));
+            tfdNome.setText(cid.getNome());
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para edição!");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        String retorno = null;
         if (!tfdNome.getText().trim().equals("")) {
 
-            Estado_view es = new Estado_view();
-            es.setCodigo(Integer.parseInt(tfdCodigo.getText()));
-            es.setNome(tfdNome.getText());
-            es.setPais((Pais_view) new PaisDAO().consultarId(codEstado));
+            cid.setNome(tfdNome.getText());
+            cid.setEstado(est);
 
-            if (codCidade == 0) {
-                retorno = cidDAO.salvar(es);
-            } else {
-                es.setCodigo(codCidade);
-                retorno = cidDAO.atualizar(es);
-            }
+            JOptionPane.showMessageDialog(null, new GenericoDAO<Cidade>(cid).gravar());
 
-            if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-                tfdCodigo.setText(Integer.toString(cidDAO.pegaProximoCodigo()));
-                cidDAO.popularTabela(tblConsulta, "", codEstado);
-                tfdNome.setText("");
-
-                tfdNome.requestFocus();
-            } else {
-                JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n"
-                        + "Erro técnico: \n" + retorno);
-            }
+            resetField();
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-
-    }//GEN-LAST:event_btnListarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBusca;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
@@ -255,7 +229,7 @@ public class Cidade_view extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblConsulta;
-    private javax.swing.JTextField tdfBuscar;
+    private javax.swing.JTextField tfdBuscar;
     private javax.swing.JTextField tfdCodigo;
     private javax.swing.JTextField tfdNome;
     // End of variables declaration//GEN-END:variables

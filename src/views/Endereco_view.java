@@ -1,7 +1,8 @@
 package views;
 
+import Entitys.Cidade;
+import Entitys.Logradouro;
 import classes.Pessoa.Endereco.Cidade;
-import classes.Pessoa.Endereco.Endereco;
 import classes.Pessoa.Endereco.Enderecos;
 import classes.Pessoa.Endereco.Logradouro;
 import classes.Pessoa.Pessoa;
@@ -15,6 +16,7 @@ import dao.UsuarioDAO;
 import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
 import support.ComboItens;
+import utils.ComboItens;
 import view.cliente.cliente;
 import view.cliente.usuario;
 import view.contratado;

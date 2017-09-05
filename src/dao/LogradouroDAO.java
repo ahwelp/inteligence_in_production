@@ -17,7 +17,7 @@ public class LogradouroDAO extends GenericoDAO<Object> {
         List<String> resultQuery = Listar(criterio);
 
         // cabecalho da tabela
-        Object[] cabecalho = {"Código", "Titulo"};
+        Object[] cabecalho = {"Código", "Sigla", "Nome"};
 
         // cria matriz de acordo com nº de registros da tabela
         try {
@@ -32,7 +32,8 @@ public class LogradouroDAO extends GenericoDAO<Object> {
             for (Object o : resultQuery) {
                 Logradouro s = (Logradouro) o;
                 dadosTabela[row][0] = s.getCodigo();
-                dadosTabela[row][1] = s.getNome();
+                dadosTabela[row][1] = s.getSigla();
+                dadosTabela[row][2] = s.getNome();
                 row++;
             }
         } catch (Exception e) {
@@ -78,6 +79,9 @@ public class LogradouroDAO extends GenericoDAO<Object> {
                     column.setPreferredWidth(17);
                     break;
                 case 1:
+                    column.setPreferredWidth(17);
+                    break;
+                case 2:
                     column.setPreferredWidth(140);
                     break;
             }

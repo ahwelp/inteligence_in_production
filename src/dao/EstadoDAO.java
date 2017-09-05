@@ -1,23 +1,22 @@
 package dao;
 
-import Entitys.Pais;
+import Entitys.Estado;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class PaisDAO extends GenericoDAO<Object> {
+public class EstadoDAO extends GenericoDAO<Object> {
 
-    public PaisDAO(Object obj) {
+    public EstadoDAO(Object obj) {
         super(obj);
     }
 
     public void PopulaTabela(JTable tabela, String[][] criterio) {
         Object[][] dadosTabela = null;
-        List<Object> resultQuery = Listar(criterio);
-
+        List resultQuery = Listar(criterio);
         // cabecalho da tabela
-        Object[] cabecalho = {"Código", "Titulo", "Sigla"};
+        Object[] cabecalho = {"Código", "Nome", "UF"};
 
         // cria matriz de acordo com nº de registros da tabela
         try {
@@ -30,10 +29,10 @@ public class PaisDAO extends GenericoDAO<Object> {
         try {
             int row = 0;
             for (Object o : resultQuery) {
-                Pais s = (Pais) o;
+                Estado s = (Estado) o;
                 dadosTabela[row][0] = s.getCodigo();
                 dadosTabela[row][1] = s.getNome();
-                dadosTabela[row][2] = s.getSigla();
+                dadosTabela[row][2] = s.getUf();
                 row++;
             }
         } catch (Exception e) {

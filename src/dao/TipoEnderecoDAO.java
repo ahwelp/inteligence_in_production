@@ -12,9 +12,9 @@ public class TipoEnderecoDAO extends GenericoDAO<Object> {
         super(obj);
     }
 
-    public void PopulaTabela(JTable tabela, String criterio) {
+    public void PopulaTabela(JTable tabela, String[][] criterio) {
         Object[][] dadosTabela = null;
-        List<Object> resultQuery = Listar("nome", criterio);
+        List<String> resultQuery = Listar(criterio);
 
         // cabecalho da tabela
         Object[] cabecalho = {"Código", "Titulo"};

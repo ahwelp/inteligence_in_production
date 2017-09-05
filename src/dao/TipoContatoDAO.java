@@ -2,9 +2,11 @@ package dao;
 
 import Entitys.Tipocontato;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import utils.ComboItens;
 
 public class TipoContatoDAO extends GenericoDAO<Object> {
 
@@ -12,9 +14,9 @@ public class TipoContatoDAO extends GenericoDAO<Object> {
         super(obj);
     }
 
-    public void PopulaTabela(JTable tabela, String criterio) {
+    public void PopulaTabela(JTable tabela, String[][] criterio) {
         Object[][] dadosTabela = null;
-        List<Object> resultQuery = Listar("nome", criterio);
+        List<String> resultQuery = Listar(criterio);
 
         // cabecalho da tabela
         Object[] cabecalho = {"Código", "Titulo"};
@@ -81,6 +83,34 @@ public class TipoContatoDAO extends GenericoDAO<Object> {
                     column.setPreferredWidth(140);
                     break;
             }
+        }
+    }
+
+    public void popularCombo(JComboBox combo) {
+        ComboItens item;
+        combo.removeAllItems();
+        List<Object> resultQuery = Listar(null);
+        try {
+            if (!resultQuery.isEmpty()) {
+                item = new ComboItens();
+                item.setCodigo(0);
+                item.setDescricao("-- Selecione uma opção --");
+                combo.addItem(item);
+                for (Object o : resultQuery) {
+                    Tipocontato s = (Tipocontato) o;
+                    item = new ComboItens();
+                    item.setCodigo(s.getCodigo());
+                    item.setDescricao(s.getSigla() + " - " + s.getNome());
+                    combo.addItem(item);
+                }
+            } else {
+                item = new ComboItens();
+                item.setCodigo(0);
+                item.setDescricao("-- Nenhuma opção cadastrada --");
+                combo.addItem(item);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao popular Combo = " + e.toString());
         }
     }
 

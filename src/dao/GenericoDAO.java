@@ -2,6 +2,7 @@ package dao;
 
 import utils.HibernateUtil;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -12,8 +13,8 @@ import org.hibernate.criterion.Restrictions;
  */
 public class GenericoDAO<T> {
 
-    private final Object obj;
-    private final Session s;
+    public Object obj;
+    public Session s;
 
     public GenericoDAO(Object obj) {
         s = HibernateUtil.getSession();
@@ -63,24 +64,38 @@ public class GenericoDAO<T> {
         }
     }
 
-    public List listar() {
+    /*
+     *
+     * Regras de uso
+     * Vetor de 3 posições 
+     * 1 - Tipo de consulta 
+     * 2 - Onde consultar na tabela 
+     * 3 - Dado a ser procurado
+     *
+     * Tipos de consultas
+     *
+     * contains - Verifica com a clausula LIKE [contains, coluna, %valor%]
+     * equal - Verifica igualdade [equal, coluna, valor]
+     * node - Cria Alias entre tabalas [node, tabela, nomenclatura]
+     * order - Ordena os elementos conforme o solicitaddo [order, coluna, asc/desc]
+     */
+    public List Listar(String[][] criterios) {
         try {
-            return s.createCriteria(this.obj.getClass())
-                    .list();
-        } catch (Exception e) {
-            s.getTransaction().rollback();
-            System.out.println("Erro ao listar tudo: " + e.getMessage());
-            return null;
-        } finally {
-            s.close();
-        }
-    }
+            Criteria criteria = s.createCriteria(this.obj.getClass());
+            if (criterios != null) {
+                for (String[] criterio : criterios) {
+                    if (criterio[0].equals("contains")) {
+                        criteria.add(Restrictions.like(criterio[1], criterio[2]).ignoreCase());
+                    } else if (criterio[0] == "equal") {
+                        criteria.add(Restrictions.eq(criterio[1], ((criterio[2].matches("^[0-9]*$")) ? Integer.valueOf(criterio[2]) : criterio[2])));
+                    } else if (criterio[0] == "node") {
+                        criteria.createAlias(criterio[1], criterio[2]);
+                    } else if (criterio[0] == "order") {
 
-    public List Listar(String coluna, String criterio) {
-        try {
-            return s.createCriteria(this.obj.getClass())
-                    .add(Restrictions.like(coluna, "%" + criterio + "%")
-                            .ignoreCase()).list();
+                    }
+                }
+            }
+            return criteria.list();
         } catch (Exception e) {
             s.getTransaction().rollback();
             System.out.println("Erro ao listar composta: " + e.getMessage());

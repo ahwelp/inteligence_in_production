@@ -23,7 +23,7 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
         tfdSigla.requestFocus(true);
         log = new Logradouro();
         tfdCodigo.setText(String.valueOf(new GenericoDAO<Logradouro>(log).ProximoCodigo()));
-        new LogradouroDAO(log).PopulaTabela(tblConsulta, "");
+        new LogradouroDAO(log).PopulaTabela(tblConsulta, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -227,7 +227,8 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        new LogradouroDAO(this.log).PopulaTabela(tblConsulta, tfdBuscar.getText());
+        String[][] criterio = {{"nome", "%" + tfdBuscar.getText() + "%"}};
+        new LogradouroDAO(this.log).PopulaTabela(tblConsulta, criterio);
     }//GEN-LAST:event_btnBuscaActionPerformed
 
 

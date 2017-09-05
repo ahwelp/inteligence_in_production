@@ -1,9 +1,10 @@
 package Entitys;
-// Generated 31/08/2017 10:09:43 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 23:58:26 by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tipoendereco",
-         schema = "public"
+        schema = "public"
 )
 public class Tipoendereco implements java.io.Serializable {
 
@@ -36,7 +37,7 @@ public class Tipoendereco implements java.io.Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo", unique = true, nullable = false)
     public int getCodigo() {
         return this.codigo;

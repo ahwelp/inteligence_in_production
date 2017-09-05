@@ -23,7 +23,7 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
         tfdSigla.requestFocus(true);
         tc = new Tipocontato();
         tfdCodigo.setText(String.valueOf(new GenericoDAO<Tipocontato>(tc).ProximoCodigo()));
-        new TipoEventoDAO(tc).PopulaTabela(tblConsulta, "");
+        new TipoEventoDAO(tc).PopulaTabela(tblConsulta, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -218,7 +218,8 @@ public class TipoEndereco_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        new TipoEventoDAO(tc).PopulaTabela(tblConsulta, "");
+        String[][] criterio = {{"nome", "%" + tfdBuscar.getText() + "%"}};
+        new TipoEventoDAO(tc).PopulaTabela(tblConsulta, criterio);
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed

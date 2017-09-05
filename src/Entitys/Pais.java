@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 31/08/2017 10:09:43 by Hibernate Tools 4.3.1
+// Generated 31/08/2017 23:58:26 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pais",
-         schema = "public"
+        schema = "public"
 )
 public class Pais implements java.io.Serializable {
 
@@ -40,7 +41,7 @@ public class Pais implements java.io.Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo", unique = true, nullable = false)
     public int getCodigo() {
         return this.codigo;
@@ -75,6 +76,11 @@ public class Pais implements java.io.Serializable {
 
     public void setEstados(Set<Estado> estados) {
         this.estados = estados;
+    }
+
+    @Override
+    public String toString() {
+        return "Pais{" + "codigo=" + codigo + ", nome=" + nome + ", sigla=" + sigla + ", estados=" + estados + '}';
     }
 
 }

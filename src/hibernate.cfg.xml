@@ -15,6 +15,7 @@
     <mapping class="Entitys.Tipoevento"/>
     <mapping class="Entitys.Estado"/>
     <mapping class="Entitys.Cidade"/>
+    <mapping class="Entitys.Contato"/>
     <mapping class="Entitys.Logradouro"/>
     <mapping class="Entitys.Tipocontato"/>
     <mapping class="Entitys.Pais"/>

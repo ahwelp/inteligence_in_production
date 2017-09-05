@@ -1,24 +1,31 @@
 package views;
 
-import classes.Pessoa.Endereco.Estado;
-import classes.Pessoa.Endereco.Pais;
+import Entitys.Estado;
+import Entitys.Pais;
 import dao.EstadoDAO;
-import dao.PaisDAO;
+import dao.GenericoDAO;
 import javax.swing.JOptionPane;
-import support.Formatacao;
 
 public class Estado_view extends javax.swing.JInternalFrame {
 
-    int codPais, codEstado = 0;
-    EstadoDAO esDAO = new EstadoDAO();
+    Pais pa = new Pais();
+    Estado est = new Estado();
 
     public Estado_view(int codPais) {
         initComponents();
-        esDAO.popularTabela(tblConsulta, "", codPais);
-        this.codPais = codPais;
-        tfdCodigo.setText(Integer.toString(esDAO.pegaProximoCodigo()));
-        ftfUf.requestFocus();
-        Formatacao.reformatarSigla(ftfUf);
+        this.pa = new GenericoDAO<Pais>(pa).visualizar(codPais);
+        resetField();
+    }
+
+    public void resetField() {
+        tfdNome.setText("");
+        ftfUf.setText("");
+        tfdNome.requestFocus(true);
+        est = new Estado();
+        est.setPais(pa);
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Estado>(est).ProximoCodigo()));
+        String[][] criterios = {{"node", "pais", "p"}, {"equal", "p.codigo", String.valueOf(pa.getCodigo())}};
+        new EstadoDAO(est).PopulaTabela(tblConsulta, criterios);
     }
 
     @SuppressWarnings("unchecked")
@@ -27,7 +34,7 @@ public class Estado_view extends javax.swing.JInternalFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tdfBuscar = new javax.swing.JTextField();
+        tfdBuscar = new javax.swing.JTextField();
         btnBusca = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsulta = new javax.swing.JTable();
@@ -62,11 +69,6 @@ public class Estado_view extends javax.swing.JInternalFrame {
 
             }
         ));
-        tblConsulta.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tblConsultaPropertyChange(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblConsulta);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -75,7 +77,7 @@ public class Estado_view extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(tdfBuscar)
+                .addComponent(tfdBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBusca)
                 .addGap(6, 6, 6))
@@ -90,7 +92,7 @@ public class Estado_view extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tdfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBusca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -205,64 +207,40 @@ public class Estado_view extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        esDAO.popularTabela(tblConsulta, tdfBuscar.getText(), codPais);
+        String[][] criterios = {{"node", "pais", "p"}, {"equal", "p.codigo", String.valueOf(pa.getCodigo())}, {"contains", "nome", "%" + tfdBuscar.getText() + "%"}};
+        new EstadoDAO(est).PopulaTabela(tblConsulta, criterios);
     }//GEN-LAST:event_btnBuscaActionPerformed
-
-    private void tblConsultaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblConsultaPropertyChange
-
-    }//GEN-LAST:event_tblConsultaPropertyChange
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        codEstado = 0;
-        tfdCodigo.setText(Integer.toString(esDAO.pegaProximoCodigo()));
-        ftfUf.setText("");
-        tfdNome.setText("");
+        resetField();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            Estado_view es = (Estado_view) esDAO.consultarId((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
-            codEstado = es.getCodigo();
-            tfdCodigo.setText(String.valueOf(codEstado));
-            ftfUf.setText(es.getUf());
-            tfdNome.setText(es.getNome());
+            this.est = (Estado) new GenericoDAO<Estado>(est).visualizar((int) tblConsulta.getValueAt(
+                    tblConsulta.getSelectedRow(), 0));
+            tfdCodigo.setText(String.valueOf(est.getCodigo()));
+            ftfUf.setText(est.getUf());
+            tfdNome.setText(est.getNome());
         } else {
             JOptionPane.showMessageDialog(null, "Uma linha da tabela deve estar selecionada para edição!");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        String retorno = null;
         if (!tfdNome.getText().trim().equals("") && !ftfUf.getText().trim().equals("__")) {
 
-            Estado_view es = new Estado_view();
-            es.setCodigo(Integer.parseInt(tfdCodigo.getText()));
-            es.setNome(tfdNome.getText());
-            es.setUf(ftfUf.getText());
-            es.setPais((Pais) new PaisDAO().consultarId(codPais));
+            est.setNome(tfdNome.getText());
+            est.setUf(ftfUf.getText());
+            est.setPais(pa);
 
-            if (codEstado == 0) {
-                retorno = esDAO.salvar(es);
-            } else {
-                es.setCodigo(codEstado);
-                retorno = esDAO.atualizar(es);
-            }
+            JOptionPane.showMessageDialog(null, new GenericoDAO<Estado>(est).gravar());
 
-            if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-                tfdCodigo.setText(Integer.toString(esDAO.pegaProximoCodigo()));
-                esDAO.popularTabela(tblConsulta, "", codPais);
-                ftfUf.setText("");
-                tfdNome.setText("");
-                tfdNome.requestFocus();
-            } else {
-                JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n"
-                        + "Erro técnico: \n" + retorno);
-            }
+            resetField();
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
         }
@@ -288,7 +266,7 @@ public class Estado_view extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblConsulta;
-    private javax.swing.JTextField tdfBuscar;
+    private javax.swing.JTextField tfdBuscar;
     private javax.swing.JTextField tfdCodigo;
     private javax.swing.JTextField tfdNome;
     // End of variables declaration//GEN-END:variables

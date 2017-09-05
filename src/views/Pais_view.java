@@ -24,7 +24,7 @@ public class Pais_view extends javax.swing.JInternalFrame {
         tfdSigla.requestFocus(true);
         pa = new Pais();
         tfdCodigo.setText(String.valueOf(new GenericoDAO<Pais>(pa).ProximoCodigo()));
-        new PaisDAO(pa).PopulaTabela(tblConsulta, "");
+        new PaisDAO(pa).PopulaTabela(tblConsulta, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -215,7 +215,7 @@ public class Pais_view extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            pa = (Pais) new GenericoDAO<Pais>(pa).visualizar((int) tblConsulta.getValueAt(
+            this.pa = (Pais) new GenericoDAO<Pais>(pa).visualizar((int) tblConsulta.getValueAt(
                     tblConsulta.getSelectedRow(), 0));
             tfdCodigo.setText(String.valueOf(pa.getCodigo()));
             tfdSigla.setText(pa.getSigla());
@@ -226,7 +226,8 @@ public class Pais_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        new PaisDAO(pa).PopulaTabela(tblConsulta, tfdBuscar.getText());
+        String[][] criterios = {{"contains", "nome", "%" + tfdBuscar.getText() + "%"}};
+        new PaisDAO(pa).PopulaTabela(tblConsulta, criterios);
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed

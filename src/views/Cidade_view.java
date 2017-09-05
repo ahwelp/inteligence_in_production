@@ -1,7 +1,7 @@
 package views;
 
-
-import br.com.is.dao.GenericoDAO;
+import dao.GenericoDAO;
+import dao.PaisDAO;
 import javax.swing.JOptionPane;
 
 public class Cidade_view extends javax.swing.JInternalFrame {
@@ -11,7 +11,10 @@ public class Cidade_view extends javax.swing.JInternalFrame {
 
     public Cidade_view(int codEstado) {
         initComponents();
+
+        String[][] criterio = {{"pais", "%" + tfdBuscar.getText() + "%"}};
         cidDAO.popularTabela(tblConsulta, "", codEstado);
+
         this.codEstado = codEstado;
         tfdCodigo.setText(Integer.toString(cidDAO.pegaProximoCodigo()));
     }

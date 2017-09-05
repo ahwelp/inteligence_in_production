@@ -1,34 +1,28 @@
 package views;
 
-import classes.Pessoa.Contato.Contato;
-import classes.Pessoa.Contato.Contatos;
-import classes.Pessoa.Pessoa;
-import classes.Tipos;
-import dao.CombosDAO;
-import dao.ContatoDAO;
-import dao.ContatosDAO;
-import dao.ContratanteDAO;
+import Entitys.Contato;
+import Entitys.Tipocontato;
+import dao.GenericoDAO;
 import dao.TipoContatoDAO;
-import dao.UsuarioDAO;
 import javax.swing.JOptionPane;
-import support.ComboItens;
-import view.cliente.cliente;
-import view.cliente.usuario;
-import view.contratado;
 
 public class Contato_view extends javax.swing.JInternalFrame {
 
-    ContatosDAO contDAO = new ContatosDAO();
-    private int codPessoa = 0, codContato = 0;
-    private char tela = 'x';
+    Tipocontato tc = new Tipocontato();
+    Contato ctt = new Contato();
 
-    public Contato_view(int codPessoa, int codContato, char tela) {
+    public Contato_view() {
         initComponents();
-        this.codContato = codContato;
-        this.codPessoa = codPessoa;
-        this.tela = tela;
-        new CombosDAO().popularCombo("tipoContato", "idtipoContato, titulo", cmbTipo, "");
-        tfdCodigo.setText(String.valueOf(contDAO.pegaProximoCodigo()));
+        resetField();
+        new TipoContatoDAO(tc).popularCombo(cmbTipo);
+    }
+
+    public void resetField() {
+        tfdContato.setText("");
+        txaDescricao.setText("");
+        tfdContato.requestFocus(true);
+        ctt = new Contato();
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Contato>(ctt).ProximoCodigo()));
     }
 
     @SuppressWarnings("unchecked")
@@ -131,49 +125,14 @@ public class Contato_view extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        ComboItens item = new ComboItens();
-        item.setCodigo(0);
-        item.setDescricao("Selecione uma opção");
+        if (!tfdContato.getText().trim().equals("")) {
 
-        if (!tfdContato.getText().trim().isEmpty() && !cmbTipo.getSelectedItem().equals(item)) {
+            ctt.setContato(tfdContato.getText());
+            ctt.setDescricao(txaDescricao.getText());
 
-            Contatos contacts = new Contatos();
-            contacts.setCodigo(Integer.valueOf(tfdCodigo.getText()));
-            contacts.setContato(tfdContato.getText());
-            contacts.setDescricao(tfdContato.getText());
+            JOptionPane.showMessageDialog(null, new GenericoDAO<Contato>(ctt).gravar());
 
-            Contato_view contact = new Contato_view();
-            ComboItens comboTipo = (ComboItens) cmbTipo.getSelectedItem();
-            contact.setTipoContato((Tipos) new TipoContatoDAO().consultarId(comboTipo.getCodigo()));
-            contact.setContato(contacts);
-
-            if (tela == 'u') {
-                contact.setPessoa((Pessoa) new UsuarioDAO().consultarId(codPessoa));
-            } else {
-                contact.setPessoa((Pessoa) new ContratanteDAO().consultarId(codPessoa));
-            }
-
-            if (new ContatosDAO().salvar(contacts) == null && new ContatoDAO().salvar(contact) == null) {
-                switch (tela) {
-                    case 'c':
-                        new ContatoDAO().popularTabela(cliente.tblContato, codPessoa);
-                        break;
-                    case 'u':
-                        new ContatoDAO().popularTabela(usuario.tblContatos, codPessoa);
-                        break;
-                    case 'p':
-                        new ContatoDAO().popularTabela(contratado.tblContato, codPessoa);
-                        break;
-                    default:
-                        System.out.println("Houve algum problema 'tela = contatos.java'!");
-                        break;
-                }
-                JOptionPane.showMessageDialog(null, "Sucesso no registro!");
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Houve algum erro no cadastro!");
-            }
-
+            resetField();
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
         }

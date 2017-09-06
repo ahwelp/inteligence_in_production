@@ -6,6 +6,7 @@
 package views;
 
 import utils.Support;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -13,11 +14,17 @@ import utils.Support;
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
 
+    //initializing the logger
+    static Logger log4j = Logger.getLogger(JanelaPrincipal.class);
+
     /**
      * Creates new form JanelaPrincipal
      */
     public JanelaPrincipal() {
         initComponents();
+        log4j.info("#######################################################################################");
+        log4j.info("########## IPP - INICIANDO...##########################################################");
+        log4j.info("#######################################################################################");
     }
 
     /**

@@ -50,6 +50,10 @@ public class Formatacao {
         return getFormatado("##/##/####");
     }
 
+    public static JFormattedTextField getCep() {
+        return getFormatado("######-###");
+    }
+
     public void formatoDecimal(JTextField campo) {
         campo.setText(df.format(Double.parseDouble(campo.getText())));
     }
@@ -99,6 +103,19 @@ public class Formatacao {
             MaskFormatter m = new MaskFormatter();
             m.setPlaceholderCharacter('_');
             m.setMask("##.###.###/####-##");
+            campo.setFormatterFactory(null);
+            campo.setFormatterFactory(new DefaultFormatterFactory(m));
+            campo.setValue(null);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    public static void reformatarCep(JFormattedTextField campo) {
+        try {
+            MaskFormatter m = new MaskFormatter();
+            m.setPlaceholderCharacter('_');
+            m.setMask("######-###");
             campo.setFormatterFactory(null);
             campo.setFormatterFactory(new DefaultFormatterFactory(m));
             campo.setValue(null);

@@ -9,15 +9,19 @@
     <property name="hibernate.connection.password">postgres</property>
     <property name="hbm2ddl.auto">update</property>
     <property name="show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
     <mapping class="Entitys.Endereco"/>
     <mapping class="Entitys.Tipoendereco"/>
-    <mapping class="Entitys.Evento"/>
-    <mapping class="Entitys.Tipoevento"/>
+    <mapping class="Entitys.Pessoa"/>
     <mapping class="Entitys.Estado"/>
     <mapping class="Entitys.Cidade"/>
-    <mapping class="Entitys.Contato"/>
     <mapping class="Entitys.Logradouro"/>
     <mapping class="Entitys.Tipocontato"/>
+    <mapping class="Entitys.Possui"/>
+    <mapping class="Entitys.PossuiId"/>
+    <mapping class="Entitys.Evento"/>
+    <mapping class="Entitys.Tipoevento"/>
+    <mapping class="Entitys.Contato"/>
     <mapping class="Entitys.Pais"/>
   </session-factory>
 </hibernate-configuration>

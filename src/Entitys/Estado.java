@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 31/08/2017 23:58:26 by Hibernate Tools 4.3.1
+// Generated 05/09/2017 21:55:14 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "estado",
-        schema = "public"
+         schema = "public"
 )
 public class Estado implements java.io.Serializable {
 
@@ -91,11 +91,6 @@ public class Estado implements java.io.Serializable {
 
     public void setCidades(Set<Cidade> cidades) {
         this.cidades = cidades;
-    }
-
-    @Override
-    public String toString() {
-        return "Estado{" + "codigo=" + codigo + ", pais=" + pais + ", nome=" + nome + ", uf=" + uf + ", cidades=" + cidades + '}';
     }
 
 }

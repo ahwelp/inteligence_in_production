@@ -67,7 +67,7 @@ public class GenericoDAO<T> {
     /*
      *
      * Regras de uso
-     * Vetor de 3 posições 
+     * Vetor de 3 posições
      * 1 - Tipo de consulta 
      * 2 - Onde consultar na tabela 
      * 3 - Dado a ser procurado

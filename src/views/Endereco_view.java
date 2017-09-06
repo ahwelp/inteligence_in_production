@@ -1,15 +1,43 @@
 package views;
 
+import Entitys.Cidade;
+import Entitys.Endereco;
+import Entitys.Estado;
+import Entitys.Logradouro;
+import Entitys.Pais;
+import Entitys.Tipoendereco;
+import dao.CidadeDAO;
+import dao.EstadoDAO;
+import dao.GenericoDAO;
+import dao.LogradouroDAO;
+import dao.PaisDAO;
+import dao.TipoEnderecoDAO;
 import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
 import utils.ComboItens;
 
 public class Endereco_view extends javax.swing.JInternalFrame {
 
+    Tipoendereco te = new Tipoendereco();
+    Logradouro log = new Logradouro();
+    Cidade cid = new Cidade();
+    Endereco end = new Endereco();
+
     public Endereco_view() {
-        
+        initComponents();
+        new TipoEnderecoDAO(te).popularCombo(cmbTipoEndereco);
+        new LogradouroDAO(log).popularCombo(cmbLogradouro);
+        new PaisDAO(new Pais()).popularCombo(cmbPais);
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Endereco>(end).ProximoCodigo()));
     }
 
+//    public void resetField() {
+//        tfdEndereco.setText("");
+//        tfdNum.setText("");
+//        tfdCep.setText("");
+//        tfdBairro.setText("");
+//        tfaComplemento.setText("");
+//    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -220,7 +248,22 @@ public class Endereco_view extends javax.swing.JInternalFrame {
                 && !cmbLogradouro.getSelectedItem().equals(item) && !cmbPais.getSelectedItem().equals(item)
                 && !cmbEstado.getSelectedItem().equals(item) && !cmbCidade.getSelectedItem().equals(item)
                 && !cmbTipoEndereco.getSelectedItem().equals(item)) {
-            
+
+            ComboItens comboLogradouro = (ComboItens) cmbLogradouro.getSelectedItem();
+            log = (Logradouro) new LogradouroDAO(log).visualizar(comboLogradouro.getCodigo());
+            ComboItens comboCidade = (ComboItens) cmbLogradouro.getSelectedItem();
+            cid = (Cidade) new CidadeDAO(cid).visualizar(comboCidade.getCodigo());
+            System.out.println(cid.getNome());
+
+            end.setRua(tfdEndereco.getText());
+            end.setNumero(tfdNum.getText());
+            end.setBairro(tfdBairro.getText());
+            end.setCep(tfdCep.getText());
+            end.setComplemento(tfaComplemento.getText());
+            end.setLogradouro(log);
+            end.setCidade(cid);
+
+            JOptionPane.showMessageDialog(null, new GenericoDAO<Endereco>(end).gravar());
 
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");
@@ -233,13 +276,17 @@ public class Endereco_view extends javax.swing.JInternalFrame {
 
     private void cmbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstadoItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            
+            ComboItens comboEstado = (ComboItens) cmbEstado.getSelectedItem();
+            String[][] criterio = {{"node", "estado", "e"}, {"equal", "e.codigo", String.valueOf(comboEstado.getCodigo())}};
+            new CidadeDAO(new Cidade()).popularCombo(cmbCidade, criterio);
         }
     }//GEN-LAST:event_cmbEstadoItemStateChanged
 
     private void cmbPaisItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPaisItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            
+            ComboItens comboPais = (ComboItens) cmbPais.getSelectedItem();
+            String[][] criterio = {{"node", "pais", "p"}, {"equal", "p.codigo", String.valueOf(comboPais.getCodigo())}};
+            new EstadoDAO(new Estado()).popularCombo(cmbEstado, criterio);
         }
     }//GEN-LAST:event_cmbPaisItemStateChanged
 

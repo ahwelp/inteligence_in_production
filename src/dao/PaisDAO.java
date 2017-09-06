@@ -2,9 +2,11 @@ package dao;
 
 import Entitys.Pais;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import utils.ComboItens;
 
 public class PaisDAO extends GenericoDAO<Object> {
 
@@ -85,4 +87,31 @@ public class PaisDAO extends GenericoDAO<Object> {
         }
     }
 
+    public void popularCombo(JComboBox combo) {
+        ComboItens item;
+        combo.removeAllItems();
+        List<Object> resultQuery = Listar(null);
+        try {
+            if (!resultQuery.isEmpty()) {
+                item = new ComboItens();
+                item.setCodigo(0);
+                item.setDescricao("-- Selecione uma opção --");
+                combo.addItem(item);
+                for (Object o : resultQuery) {
+                    Pais s = (Pais) o;
+                    item = new ComboItens();
+                    item.setCodigo(s.getCodigo());
+                    item.setDescricao(s.getSigla() + " - " + s.getNome());
+                    combo.addItem(item);
+                }
+            } else {
+                item = new ComboItens();
+                item.setCodigo(0);
+                item.setDescricao("-- Nenhuma opção cadastrada --");
+                combo.addItem(item);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao popular Combo = " + e.toString());
+        }
+    }
 }

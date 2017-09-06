@@ -2,11 +2,16 @@ package views;
 
 import javax.swing.JOptionPane;
 import utils.Formatacao;
+import utils.Support;
+import static views.JanelaPrincipal.jDesktopPane;
 
 public class Pessoa_view extends javax.swing.JInternalFrame {
 
     public Pessoa_view() {
         initComponents();
+        Formatacao.reformatarCpf(ftfCpf);
+        Formatacao.reformatarData(ftfNascimento);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -152,53 +157,52 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblNome)
-                        .addComponent(lblCPF)
-                        .addComponent(lblNascimento)
-                        .addComponent(lblGenero)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(btnAdicionaContato)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnRemoveContato))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnAdicionaEndereco)
+                    .addComponent(lblNome)
+                    .addComponent(lblCPF)
+                    .addComponent(lblNascimento)
+                    .addComponent(lblGenero)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(btnAdicionaContato)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnRemoveEndereco))
-                                .addComponent(jLabel6)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(ftfCpf, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfdCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                                        .addComponent(ftfNascimento, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfdNome, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblApelido)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel5)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(10, 10, 10)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(tfdExpedidor, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                                                .addComponent(tfdRG, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(tfdApelido, javax.swing.GroupLayout.Alignment.LEADING)))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(rbtF)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(rbtM))))
-                        .addComponent(lblNome1))
+                                    .addComponent(btnRemoveContato))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAdicionaEndereco)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnRemoveEndereco))
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(ftfCpf, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfdCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                                    .addComponent(ftfNascimento, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfdNome, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblApelido)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel5)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(tfdExpedidor, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                                            .addComponent(tfdRG, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfdApelido, javax.swing.GroupLayout.Alignment.LEADING)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbtF)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbtM))))
+                    .addComponent(lblNome1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -226,7 +230,7 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
                                         .addComponent(lblApelido)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(tfdApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCPF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ftfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -265,7 +269,7 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
                         .addComponent(btnAdicionaContato)
                         .addComponent(btnRemoveContato))
                     .addComponent(btnRemoveEndereco))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnSair))
@@ -306,11 +310,15 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnAdicionaContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaContatoActionPerformed
-
+        Contato_view conv = new Contato_view();
+        Support.centralizar(jDesktopPane.add(conv));
+        conv.setVisible(true);
     }//GEN-LAST:event_btnAdicionaContatoActionPerformed
 
     private void btnAdicionaEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaEnderecoActionPerformed
-
+        Endereco_view endv = new Endereco_view();
+        Support.centralizar(jDesktopPane.add(endv));
+        endv.setVisible(true);
     }//GEN-LAST:event_btnAdicionaEnderecoActionPerformed
 
 

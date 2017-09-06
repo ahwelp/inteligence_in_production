@@ -1,11 +1,15 @@
 package Entitys;
-// Generated 31/08/2017 23:58:26 by Hibernate Tools 4.3.1
+// Generated 05/09/2017 21:55:14 by Hibernate Tools 4.3.1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -13,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tipoendereco",
-        schema = "public"
+         schema = "public"
 )
 public class Tipoendereco implements java.io.Serializable {
 
@@ -21,6 +25,7 @@ public class Tipoendereco implements java.io.Serializable {
     private String nome;
     private String sigla;
     private String descricao;
+    private Set<Possui> possuis = new HashSet<Possui>(0);
 
     public Tipoendereco() {
     }
@@ -29,11 +34,12 @@ public class Tipoendereco implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    public Tipoendereco(int codigo, String nome, String sigla, String descricao) {
+    public Tipoendereco(int codigo, String nome, String sigla, String descricao, Set<Possui> possuis) {
         this.codigo = codigo;
         this.nome = nome;
         this.sigla = sigla;
         this.descricao = descricao;
+        this.possuis = possuis;
     }
 
     @Id
@@ -72,6 +78,15 @@ public class Tipoendereco implements java.io.Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoendereco")
+    public Set<Possui> getPossuis() {
+        return this.possuis;
+    }
+
+    public void setPossuis(Set<Possui> possuis) {
+        this.possuis = possuis;
     }
 
 }

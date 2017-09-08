@@ -159,6 +159,29 @@ public class Formatacao {
         return (dataFormatada);
     }
 
+    /**
+     * Converte uma String para um objeto Date. Caso a String seja vazia ou
+     * nula, retorna null - para facilitar em casos onde formulários podem ter
+     * campos de datas vazios.
+     *
+     * @param data String no formato dd/MM/yyyy a ser formatada
+     * @return Date Objeto Date ou null caso receba uma String vazia ou nula
+     * @throws Exception Caso a String esteja no formato errado
+     */
+    public static java.sql.Date formataDataSql(String data) throws Exception {
+        if (data == null || data.equals("")) {
+            return null;
+        }
+        java.sql.Date date = null;
+        try {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            date = new java.sql.Date(((java.util.Date) formatter.parse(data)).getTime());
+        } catch (ParseException e) {
+            throw e;
+        }
+        return date;
+    }
+
     public static String removerFormatacao(String dado) {
         String retorno = "";
         for (int i = 0; i < dado.length(); i++) {

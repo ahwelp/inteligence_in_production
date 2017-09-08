@@ -1,5 +1,11 @@
 package views;
 
+import Entitys.Pessoa;
+import Entitys.Possui;
+import dao.EnderecosDAO;
+import dao.GenericoDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utils.Formatacao;
 import utils.Support;
@@ -7,11 +13,27 @@ import static views.JanelaPrincipal.jDesktopPane;
 
 public class Pessoa_view extends javax.swing.JInternalFrame {
 
+    Pessoa pe = new Pessoa();
+
     public Pessoa_view() {
         initComponents();
         Formatacao.reformatarCpf(ftfCpf);
         Formatacao.reformatarData(ftfNascimento);
-        
+        resetField();
+    }
+
+    public void resetField() {
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Pessoa>(pe).ProximoCodigo()));
+        tfdNome.setText("");
+        tfdApelido.setText("");
+        tfdRG.setText("");
+        ftfCpf.setText("");
+        ftfNascimento.setText("");
+        tfdExpedidor.setText("");
+        rbtM.setSelected(true);
+
+        new EnderecosDAO(new Possui()).PopulaTabela(tblEnderecos);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -297,8 +319,23 @@ public class Pessoa_view extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (!tfdCodigo.getText().trim().isEmpty() && !tfdNome.getText().trim().isEmpty()
-                //                && !tfdUsuario.getText().trim().isEmpty() && !tfdCargo.getText().trim().isEmpty()
                 && !Formatacao.removerFormatacao(ftfNascimento.getText()).trim().isEmpty()) {
+
+            try {
+                pe.setNome(tfdNome.getText());
+                pe.setApelido(tfdApelido.getText());
+                pe.setCpf(Formatacao.removerFormatacao(ftfCpf.getText()));
+                pe.setRg(tfdRG.getText());
+                pe.setNascimento(Formatacao.formataDataSql(ftfNascimento.getText()));
+                pe.setOrgexp(tfdExpedidor.getText());
+                pe.setGenero((rbtM.isSelected()) ? "M" : "F");
+
+                JOptionPane.showMessageDialog(null, new GenericoDAO<Pessoa>(pe).gravar());
+
+                resetField();
+            } catch (Exception ex) {
+                Logger.getLogger(Pessoa_view.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem estar todos preenchidos!");

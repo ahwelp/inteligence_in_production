@@ -64,9 +64,7 @@ public class GenericoDAO<T> {
         }
     }
 
-    /*
-     *
-     * Regras de uso
+    /* Regras de uso
      * Vetor de 3 posições
      * 1 - Tipo de consulta 
      * 2 - Onde consultar na tabela 
@@ -86,11 +84,11 @@ public class GenericoDAO<T> {
                 for (String[] criterio : criterios) {
                     if (criterio[0].equals("contain")) {
                         criteria.add(Restrictions.like(criterio[1], criterio[2]).ignoreCase());
-                    } else if (criterio[0] == "equal") {
+                    } else if ("equal".equals(criterio[0])) {
                         criteria.add(Restrictions.eq(criterio[1], ((criterio[2].matches("^[0-9]*$")) ? Integer.valueOf(criterio[2]) : criterio[2])));
-                    } else if (criterio[0] == "node") {
+                    } else if ("node".equals(criterio[0])) {
                         criteria.createAlias(criterio[1], criterio[2]);
-                    } else if (criterio[0] == "order") {
+                    } else if ("order".equals(criterio[0])) {
 
                     }
                 }
@@ -113,7 +111,7 @@ public class GenericoDAO<T> {
         } catch (Exception e) {
             s.getTransaction().rollback();
             System.out.println("Erro ao listar tudo: " + e.getMessage());
-            return 0;
+            return 1;
         } finally {
             s.close();
         }

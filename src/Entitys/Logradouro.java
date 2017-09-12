@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 05/09/2017 21:55:14 by Hibernate Tools 4.3.1
+// Generated 11/09/2017 17:34:30 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +24,7 @@ public class Logradouro implements java.io.Serializable {
     private int codigo;
     private String nome;
     private String sigla;
+    private Boolean ativo;
     private Set<Endereco> enderecos = new HashSet<Endereco>(0);
 
     public Logradouro() {
@@ -33,10 +34,11 @@ public class Logradouro implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    public Logradouro(int codigo, String nome, String sigla, Set<Endereco> enderecos) {
+    public Logradouro(int codigo, String nome, String sigla, Boolean ativo, Set<Endereco> enderecos) {
         this.codigo = codigo;
         this.nome = nome;
         this.sigla = sigla;
+        this.ativo = ativo;
         this.enderecos = enderecos;
     }
 
@@ -67,6 +69,15 @@ public class Logradouro implements java.io.Serializable {
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
+    }
+
+    @Column(name = "ativo")
+    public Boolean getAtivo() {
+        return this.ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "logradouro")

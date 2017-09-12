@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 05/09/2017 21:55:14 by Hibernate Tools 4.3.1
+// Generated 11/09/2017 17:34:30 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -25,27 +25,29 @@ public class Evento implements java.io.Serializable {
 
     private int codigo;
     private Endereco endereco;
-    private Tipoevento tipoevento;
+    private TipoEvento1 tipoEvento;
     private Date horainicio;
     private Date horatermino;
     private String descricao;
+    private Boolean ativo;
 
     public Evento() {
     }
 
-    public Evento(int codigo, Endereco endereco, Tipoevento tipoevento) {
+    public Evento(int codigo, Endereco endereco, TipoEvento1 tipoEvento) {
         this.codigo = codigo;
         this.endereco = endereco;
-        this.tipoevento = tipoevento;
+        this.tipoEvento = tipoEvento;
     }
 
-    public Evento(int codigo, Endereco endereco, Tipoevento tipoevento, Date horainicio, Date horatermino, String descricao) {
+    public Evento(int codigo, Endereco endereco, TipoEvento1 tipoEvento, Date horainicio, Date horatermino, String descricao, Boolean ativo) {
         this.codigo = codigo;
         this.endereco = endereco;
-        this.tipoevento = tipoevento;
+        this.tipoEvento = tipoEvento;
         this.horainicio = horainicio;
         this.horatermino = horatermino;
         this.descricao = descricao;
+        this.ativo = ativo;
     }
 
     @Id
@@ -71,12 +73,12 @@ public class Evento implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipoevento", nullable = false)
-    public Tipoevento getTipoevento() {
-        return this.tipoevento;
+    public TipoEvento1 getTipoEvento() {
+        return this.tipoEvento;
     }
 
-    public void setTipoevento(Tipoevento tipoevento) {
-        this.tipoevento = tipoevento;
+    public void setTipoEvento(TipoEvento1 tipoEvento) {
+        this.tipoEvento = tipoEvento;
     }
 
     @Temporal(TemporalType.DATE)
@@ -106,6 +108,15 @@ public class Evento implements java.io.Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Column(name = "ativo")
+    public Boolean getAtivo() {
+        return this.ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
 }

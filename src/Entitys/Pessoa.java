@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 05/09/2017 21:55:14 by Hibernate Tools 4.3.1
+// Generated 11/09/2017 17:34:30 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "pessoa",
-         schema = "public"
+        schema = "public"
 )
 public class Pessoa implements java.io.Serializable {
 
@@ -32,7 +32,8 @@ public class Pessoa implements java.io.Serializable {
     private Date nascimento;
     private String orgexp;
     private String genero;
-    private Set<Possui> possuis = new HashSet<Possui>(0);
+    private Set<PossuiContato> possuiContatos = new HashSet<PossuiContato>(0);
+    private Set<PossuiEndereco> possuiEnderecos = new HashSet<PossuiEndereco>(0);
 
     public Pessoa() {
     }
@@ -43,7 +44,7 @@ public class Pessoa implements java.io.Serializable {
         this.nascimento = nascimento;
     }
 
-    public Pessoa(int codigo, String nome, String apelido, String cpf, String rg, Date nascimento, String orgexp, String genero, Set<Possui> possuis) {
+    public Pessoa(int codigo, String nome, String apelido, String cpf, String rg, Date nascimento, String orgexp, String genero, Set<PossuiContato> possuiContatos, Set<PossuiEndereco> possuiEnderecos) {
         this.codigo = codigo;
         this.nome = nome;
         this.apelido = apelido;
@@ -52,7 +53,8 @@ public class Pessoa implements java.io.Serializable {
         this.nascimento = nascimento;
         this.orgexp = orgexp;
         this.genero = genero;
-        this.possuis = possuis;
+        this.possuiContatos = possuiContatos;
+        this.possuiEnderecos = possuiEnderecos;
     }
 
     @Id
@@ -131,12 +133,21 @@ public class Pessoa implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
-    public Set<Possui> getPossuis() {
-        return this.possuis;
+    public Set<PossuiContato> getPossuiContatos() {
+        return this.possuiContatos;
     }
 
-    public void setPossuis(Set<Possui> possuis) {
-        this.possuis = possuis;
+    public void setPossuiContatos(Set<PossuiContato> possuiContatos) {
+        this.possuiContatos = possuiContatos;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    public Set<PossuiEndereco> getPossuiEnderecos() {
+        return this.possuiEnderecos;
+    }
+
+    public void setPossuiEnderecos(Set<PossuiEndereco> possuiEnderecos) {
+        this.possuiEnderecos = possuiEnderecos;
     }
 
 }

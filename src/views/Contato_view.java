@@ -1,14 +1,14 @@
 package views;
 
 import Entitys.Contato;
-import Entitys.Tipocontato;
+import Entitys.TipoContato1;
 import dao.GenericoDAO;
 import dao.TipoContatoDAO;
 import javax.swing.JOptionPane;
 
 public class Contato_view extends javax.swing.JInternalFrame {
 
-    Tipocontato tc = new Tipocontato();
+    TipoContato1 tc = new TipoContato1();
     Contato ctt = new Contato();
 
     public Contato_view() {

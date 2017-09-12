@@ -1,8 +1,7 @@
 package dao;
 
 import Entitys.Cidade;
-import Entitys.Endereco;
-import Entitys.Possui;
+import Entitys.PossuiEndereco;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -20,12 +19,12 @@ public class EnderecosDAO extends GenericoDAO<Object> {
         Object[][] dadosTabela = null;
         String[][] criterios = {
             {"node", "endereco", "end"},
-            {"node", "cidade", "cid"},
-            {"equal", "end.cidade", "cid.codigo"}
+            {"node", "end.cidade", "cid"},
+            {"node", "cid.estado", "est"}
         };
         List resultQuery = Listar(criterios);
         // cabecalho da tabela
-        Object[] cabecalho = {"Endereço"};
+        Object[] cabecalho = {"Endereço", "Cidade|UF"};
 
         // cria matriz de acordo com nº de registros da tabela
         try {
@@ -38,8 +37,9 @@ public class EnderecosDAO extends GenericoDAO<Object> {
         try {
             int row = 0;
             for (Object o : resultQuery) {
-                Possui s = (Possui) o;
+                PossuiEndereco s = (PossuiEndereco) o;
                 dadosTabela[row][0] = s.getEndereco().getRua() + ", " + s.getEndereco().getNumero();
+                dadosTabela[row][1] = s.getEndereco().getCidade().getNome() + " | " + s.getEndereco().getCidade().getEstado().getUf();
                 row++;
             }
         } catch (Exception e) {

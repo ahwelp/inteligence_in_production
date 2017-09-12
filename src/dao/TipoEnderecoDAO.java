@@ -1,6 +1,6 @@
 package dao;
 
-import Entitys.Tipoendereco;
+import Entitys.TipoEndereco1;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -32,7 +32,7 @@ public class TipoEnderecoDAO extends GenericoDAO<Object> {
         try {
             int row = 0;
             for (Object o : resultQuery) {
-                Tipoendereco s = (Tipoendereco) o;
+                TipoEndereco1 s = (TipoEndereco1) o;
                 dadosTabela[row][0] = s.getCodigo();
                 dadosTabela[row][1] = s.getSigla();
                 dadosTabela[row][2] = s.getNome();
@@ -98,7 +98,7 @@ public class TipoEnderecoDAO extends GenericoDAO<Object> {
                 item.setDescricao("-- Selecione uma opção --");
                 combo.addItem(item);
                 for (Object o : resultQuery) {
-                    Tipoendereco s = (Tipoendereco) o;
+                    TipoEndereco1 s = (TipoEndereco1) o;
                     item = new ComboItens();
                     item.setCodigo(s.getCodigo());
                     item.setDescricao(s.getSigla() + " - " + s.getNome());

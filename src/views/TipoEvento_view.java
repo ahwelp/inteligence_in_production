@@ -2,13 +2,13 @@ package views;
 
 import dao.GenericoDAO;
 import Entitys.Endereco;
-import Entitys.Tipoevento;
+import Entitys.TipoEvento1;
 import dao.TipoEventoDAO;
 import javax.swing.JOptionPane;
 
 public class TipoEvento_view extends javax.swing.JInternalFrame {
 
-    Tipoevento te = new Tipoevento();
+    TipoEvento1 te = new TipoEvento1();
 
     public TipoEvento_view() {
         initComponents();
@@ -19,7 +19,7 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
         tfdTitulo.setText("");
         tfdBuscar.setText("");
         tfdTitulo.requestFocus(true);
-        te = new Tipoevento();
+        te = new TipoEvento1();
         tfdCodigo.setText(String.valueOf(new GenericoDAO<Endereco>(te).ProximoCodigo()));
         new TipoEventoDAO(te).PopulaTabela(tblConsulta, null);
     }
@@ -177,7 +177,7 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            te = (Tipoevento) new GenericoDAO<Tipoevento>(te)
+            te = (TipoEvento1) new GenericoDAO<TipoEvento1>(te)
                     .visualizar((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
             tfdCodigo.setText(String.valueOf(te.getCodigo()));
             tfdTitulo.setText(te.getNome());
@@ -205,7 +205,7 @@ public class TipoEvento_view extends javax.swing.JInternalFrame {
             te.setNome(tfdTitulo.getText());
             te.setDescricao(txaDescricao.getText());
 
-            JOptionPane.showMessageDialog(null, new GenericoDAO<Tipoevento>(te).gravar());
+            JOptionPane.showMessageDialog(null, new GenericoDAO<TipoEvento1>(te).gravar());
 
             resetField();
         } else {

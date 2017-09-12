@@ -1,11 +1,15 @@
 package Entitys;
-// Generated 05/09/2017 21:55:14 by Hibernate Tools 4.3.1
+// Generated 11/09/2017 17:34:30 by Hibernate Tools 4.3.1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +24,7 @@ public class Contato implements java.io.Serializable {
     private int codigo;
     private String contato;
     private String descricao;
+    private Set<PossuiContato> possuiContatos = new HashSet<PossuiContato>(0);
 
     public Contato() {
     }
@@ -28,10 +33,11 @@ public class Contato implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    public Contato(int codigo, String contato, String descricao) {
+    public Contato(int codigo, String contato, String descricao, Set<PossuiContato> possuiContatos) {
         this.codigo = codigo;
         this.contato = contato;
         this.descricao = descricao;
+        this.possuiContatos = possuiContatos;
     }
 
     @Id
@@ -61,6 +67,15 @@ public class Contato implements java.io.Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contato")
+    public Set<PossuiContato> getPossuiContatos() {
+        return this.possuiContatos;
+    }
+
+    public void setPossuiContatos(Set<PossuiContato> possuiContatos) {
+        this.possuiContatos = possuiContatos;
     }
 
 }

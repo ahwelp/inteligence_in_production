@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 05/09/2017 21:55:14 by Hibernate Tools 4.3.1
+// Generated 11/09/2017 17:34:30 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,12 +27,12 @@ public class Endereco implements java.io.Serializable {
     private Cidade cidade;
     private Logradouro logradouro;
     private String rua;
-    private String bairro;
-    private String complemento;
     private String numero;
+    private String bairro;
     private String cep;
+    private String complemento;
     private Set<Evento> eventos = new HashSet<Evento>(0);
-    private Set<Possui> possuis = new HashSet<Possui>(0);
+    private Set<PossuiEndereco> possuiEnderecos = new HashSet<PossuiEndereco>(0);
 
     public Endereco() {
     }
@@ -43,17 +43,17 @@ public class Endereco implements java.io.Serializable {
         this.logradouro = logradouro;
     }
 
-    public Endereco(int codigo, Cidade cidade, Logradouro logradouro, String rua, String bairro, String complemento, String numero, String cep, Set<Evento> eventos, Set<Possui> possuis) {
+    public Endereco(int codigo, Cidade cidade, Logradouro logradouro, String rua, String numero, String bairro, String cep, String complemento, Set<Evento> eventos, Set<PossuiEndereco> possuiEnderecos) {
         this.codigo = codigo;
         this.cidade = cidade;
         this.logradouro = logradouro;
         this.rua = rua;
-        this.bairro = bairro;
-        this.complemento = complemento;
         this.numero = numero;
+        this.bairro = bairro;
         this.cep = cep;
+        this.complemento = complemento;
         this.eventos = eventos;
-        this.possuis = possuis;
+        this.possuiEnderecos = possuiEnderecos;
     }
 
     @Id
@@ -96,24 +96,6 @@ public class Endereco implements java.io.Serializable {
         this.rua = rua;
     }
 
-    @Column(name = "bairro", length = 75)
-    public String getBairro() {
-        return this.bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    @Column(name = "complemento", length = 150)
-    public String getComplemento() {
-        return this.complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
     @Column(name = "numero", length = 45)
     public String getNumero() {
         return this.numero;
@@ -123,6 +105,15 @@ public class Endereco implements java.io.Serializable {
         this.numero = numero;
     }
 
+    @Column(name = "bairro", length = 75)
+    public String getBairro() {
+        return this.bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
     @Column(name = "cep", length = 10)
     public String getCep() {
         return this.cep;
@@ -130,6 +121,15 @@ public class Endereco implements java.io.Serializable {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    @Column(name = "complemento", length = 150)
+    public String getComplemento() {
+        return this.complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco")
@@ -142,12 +142,12 @@ public class Endereco implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco")
-    public Set<Possui> getPossuis() {
-        return this.possuis;
+    public Set<PossuiEndereco> getPossuiEnderecos() {
+        return this.possuiEnderecos;
     }
 
-    public void setPossuis(Set<Possui> possuis) {
-        this.possuis = possuis;
+    public void setPossuiEnderecos(Set<PossuiEndereco> possuiEnderecos) {
+        this.possuiEnderecos = possuiEnderecos;
     }
 
 }

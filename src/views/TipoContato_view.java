@@ -1,6 +1,6 @@
 package views;
 
-import Entitys.TipoContato1;
+import Entitys.TipoContato;
 import dao.GenericoDAO;
 import dao.TipoContatoDAO;
 import javax.swing.JOptionPane;
@@ -8,7 +8,7 @@ import utils.Formatacao;
 
 public class TipoContato_view extends javax.swing.JInternalFrame {
 
-    TipoContato1 tc = new TipoContato1();
+    TipoContato tc = new TipoContato();
 
     public TipoContato_view() {
         initComponents();
@@ -21,8 +21,8 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
         tfdTitulo.setText("");
         tfdBuscar.setText("");
         tfdSigla.requestFocus(true);
-        tc = new TipoContato1();
-        tfdCodigo.setText(String.valueOf(new GenericoDAO<TipoContato1>(tc).ProximoCodigo()));
+        tc = new TipoContato();
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<TipoContato>(tc).ProximoCodigo()));
         new TipoContatoDAO(tc).PopulaTabela(tblConsulta, null);
     }
 
@@ -198,7 +198,7 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblConsulta.getSelectedRow() != -1) {
-            tc = (TipoContato1) new GenericoDAO<TipoContato1>(tc)
+            tc = (TipoContato) new GenericoDAO<TipoContato>(tc)
                     .visualizar((int) tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0));
             tfdCodigo.setText(String.valueOf(tc.getCodigo()));
             tfdTitulo.setText(tc.getNome());
@@ -229,7 +229,7 @@ public class TipoContato_view extends javax.swing.JInternalFrame {
             tc.setSigla(tfdSigla.getText());
             tc.setDescricao(txaDescricao.getText());
 
-            JOptionPane.showMessageDialog(null, new GenericoDAO<TipoContato1>(tc).gravar());
+            JOptionPane.showMessageDialog(null, new GenericoDAO<TipoContato>(tc).gravar());
 
             resetField();
         } else {

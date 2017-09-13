@@ -62,7 +62,7 @@ public class Logradouro implements java.io.Serializable {
         this.nome = nome;
     }
 
-    @Column(name = "sigla", length = 5)
+    @Column(name = "sigla", length = 10)
     public String getSigla() {
         return this.sigla;
     }

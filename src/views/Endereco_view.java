@@ -5,7 +5,7 @@ import Entitys.Endereco;
 import Entitys.Estado;
 import Entitys.Logradouro;
 import Entitys.Pais;
-import Entitys.TipoEndereco1;
+import Entitys.TipoEndereco;
 import dao.CidadeDAO;
 import dao.EstadoDAO;
 import dao.GenericoDAO;
@@ -18,7 +18,7 @@ import utils.ComboItens;
 
 public class Endereco_view extends javax.swing.JInternalFrame {
 
-    TipoEndereco1 te = new TipoEndereco1();
+    TipoEndereco te = new TipoEndereco();
     Logradouro log = new Logradouro();
     Cidade cid = new Cidade();
     Endereco end = new Endereco();

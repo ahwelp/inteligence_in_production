@@ -1,6 +1,6 @@
 package dao;
 
-import Entitys.TipoContato1;
+import Entitys.TipoContato;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -32,7 +32,7 @@ public class TipoContatoDAO extends GenericoDAO<Object> {
         try {
             int row = 0;
             for (Object o : resultQuery) {
-                TipoContato1 s = (TipoContato1) o;
+                TipoContato s = (TipoContato) o;
                 dadosTabela[row][0] = s.getCodigo();
                 dadosTabela[row][1] = s.getNome();
                 row++;
@@ -97,7 +97,7 @@ public class TipoContatoDAO extends GenericoDAO<Object> {
                 item.setDescricao("-- Selecione uma opção --");
                 combo.addItem(item);
                 for (Object o : resultQuery) {
-                    TipoContato1 s = (TipoContato1) o;
+                    TipoContato s = (TipoContato) o;
                     item = new ComboItens();
                     item.setCodigo(s.getCodigo());
                     item.setDescricao(s.getSigla() + " - " + s.getNome());

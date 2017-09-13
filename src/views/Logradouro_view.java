@@ -4,7 +4,6 @@ import dao.GenericoDAO;
 import Entitys.Logradouro;
 import dao.LogradouroDAO;
 import javax.swing.JOptionPane;
-import utils.Formatacao;
 
 public class Logradouro_view extends javax.swing.JInternalFrame {
 
@@ -12,7 +11,6 @@ public class Logradouro_view extends javax.swing.JInternalFrame {
 
     public Logradouro_view() {
         initComponents();
-        Formatacao.reformatarSigla(tfdSigla);
         resetField();
     }
 

@@ -25,7 +25,7 @@ public class Evento implements java.io.Serializable {
 
     private int codigo;
     private Endereco endereco;
-    private TipoEvento1 tipoEvento;
+    private TipoEvento tipoEvento;
     private Date horainicio;
     private Date horatermino;
     private String descricao;
@@ -34,13 +34,13 @@ public class Evento implements java.io.Serializable {
     public Evento() {
     }
 
-    public Evento(int codigo, Endereco endereco, TipoEvento1 tipoEvento) {
+    public Evento(int codigo, Endereco endereco, TipoEvento tipoEvento) {
         this.codigo = codigo;
         this.endereco = endereco;
         this.tipoEvento = tipoEvento;
     }
 
-    public Evento(int codigo, Endereco endereco, TipoEvento1 tipoEvento, Date horainicio, Date horatermino, String descricao, Boolean ativo) {
+    public Evento(int codigo, Endereco endereco, TipoEvento tipoEvento, Date horainicio, Date horatermino, String descricao, Boolean ativo) {
         this.codigo = codigo;
         this.endereco = endereco;
         this.tipoEvento = tipoEvento;
@@ -73,11 +73,11 @@ public class Evento implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipoevento", nullable = false)
-    public TipoEvento1 getTipoEvento() {
+    public TipoEvento getTipoEvento() {
         return this.tipoEvento;
     }
 
-    public void setTipoEvento(TipoEvento1 tipoEvento) {
+    public void setTipoEvento(TipoEvento tipoEvento) {
         this.tipoEvento = tipoEvento;
     }
 

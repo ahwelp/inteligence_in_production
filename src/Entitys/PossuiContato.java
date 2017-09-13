@@ -23,12 +23,12 @@ public class PossuiContato implements java.io.Serializable {
     private PossuiContatoId id;
     private Contato contato;
     private Pessoa pessoa;
-    private TipoContato1 tipoContato;
+    private TipoContato tipoContato;
 
     public PossuiContato() {
     }
 
-    public PossuiContato(PossuiContatoId id, Contato contato, Pessoa pessoa, TipoContato1 tipoContato) {
+    public PossuiContato(PossuiContatoId id, Contato contato, Pessoa pessoa, TipoContato tipoContato) {
         this.id = id;
         this.contato = contato;
         this.pessoa = pessoa;
@@ -71,11 +71,11 @@ public class PossuiContato implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_contato", nullable = false)
-    public TipoContato1 getTipoContato() {
+    public TipoContato getTipoContato() {
         return this.tipoContato;
     }
 
-    public void setTipoContato(TipoContato1 tipoContato) {
+    public void setTipoContato(TipoContato tipoContato) {
         this.tipoContato = tipoContato;
     }
 

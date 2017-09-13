@@ -23,12 +23,12 @@ public class PossuiEndereco implements java.io.Serializable {
     private PossuiEnderecoId id;
     private Endereco endereco;
     private Pessoa pessoa;
-    private TipoEndereco1 tipoEndereco;
+    private TipoEndereco tipoEndereco;
 
     public PossuiEndereco() {
     }
 
-    public PossuiEndereco(PossuiEnderecoId id, Endereco endereco, Pessoa pessoa, TipoEndereco1 tipoEndereco) {
+    public PossuiEndereco(PossuiEnderecoId id, Endereco endereco, Pessoa pessoa, TipoEndereco tipoEndereco) {
         this.id = id;
         this.endereco = endereco;
         this.pessoa = pessoa;
@@ -71,11 +71,11 @@ public class PossuiEndereco implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipoendereco", nullable = false)
-    public TipoEndereco1 getTipoEndereco() {
+    public TipoEndereco getTipoEndereco() {
         return this.tipoEndereco;
     }
 
-    public void setTipoEndereco(TipoEndereco1 tipoEndereco) {
+    public void setTipoEndereco(TipoEndereco tipoEndereco) {
         this.tipoEndereco = tipoEndereco;
     }
 

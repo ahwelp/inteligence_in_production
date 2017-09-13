@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 11/09/2017 17:34:30 by Hibernate Tools 4.3.1
+// Generated 13/09/2017 20:17:35 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,7 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "evento",
-         schema = "public"
+        schema = "public"
 )
 public class Evento implements java.io.Serializable {
 
@@ -30,6 +31,7 @@ public class Evento implements java.io.Serializable {
     private Date horatermino;
     private String descricao;
     private Boolean ativo;
+    private ServicoPertenceEvento servicoPertenceEvento;
 
     public Evento() {
     }
@@ -40,7 +42,7 @@ public class Evento implements java.io.Serializable {
         this.tipoEvento = tipoEvento;
     }
 
-    public Evento(int codigo, Endereco endereco, TipoEvento tipoEvento, Date horainicio, Date horatermino, String descricao, Boolean ativo) {
+    public Evento(int codigo, Endereco endereco, TipoEvento tipoEvento, Date horainicio, Date horatermino, String descricao, Boolean ativo, ServicoPertenceEvento servicoPertenceEvento) {
         this.codigo = codigo;
         this.endereco = endereco;
         this.tipoEvento = tipoEvento;
@@ -48,6 +50,7 @@ public class Evento implements java.io.Serializable {
         this.horatermino = horatermino;
         this.descricao = descricao;
         this.ativo = ativo;
+        this.servicoPertenceEvento = servicoPertenceEvento;
     }
 
     @Id
@@ -72,7 +75,7 @@ public class Evento implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipoevento", nullable = false)
+    @JoinColumn(name = "tipo_evento", nullable = false)
     public TipoEvento getTipoEvento() {
         return this.tipoEvento;
     }
@@ -117,6 +120,15 @@ public class Evento implements java.io.Serializable {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "evento")
+    public ServicoPertenceEvento getServicoPertenceEvento() {
+        return this.servicoPertenceEvento;
+    }
+
+    public void setServicoPertenceEvento(ServicoPertenceEvento servicoPertenceEvento) {
+        this.servicoPertenceEvento = servicoPertenceEvento;
     }
 
 }

@@ -1,7 +1,9 @@
 package Entitys;
-// Generated 12/09/2017 16:02:48 by Hibernate Tools 4.3.1
+// Generated 13/09/2017 20:17:35 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,21 +29,24 @@ public class Servico implements java.io.Serializable {
     private String titulo;
     private String descricao;
     private BigDecimal valor;
+    private Set<PacotePossuiServico> pacotePossuiServicos = new HashSet<PacotePossuiServico>(0);
+    private Set<ServicoPertenceEvento> servicoPertenceEventos = new HashSet<ServicoPertenceEvento>(0);
 
     public Servico() {
     }
 
-    public Servico(int codigo, Equipe equipe) {
+    public Servico(int codigo) {
         this.codigo = codigo;
-        this.equipe = equipe;
     }
 
-    public Servico(int codigo, Equipe equipe, String titulo, String descricao, BigDecimal valor) {
+    public Servico(int codigo, Equipe equipe, String titulo, String descricao, BigDecimal valor, Set<PacotePossuiServico> pacotePossuiServicos, Set<ServicoPertenceEvento> servicoPertenceEventos) {
         this.codigo = codigo;
         this.equipe = equipe;
         this.titulo = titulo;
         this.descricao = descricao;
         this.valor = valor;
+        this.pacotePossuiServicos = pacotePossuiServicos;
+        this.servicoPertenceEventos = servicoPertenceEventos;
     }
 
     @Id
@@ -55,7 +61,7 @@ public class Servico implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "equipe", nullable = false)
+    @JoinColumn(name = "equipe")
     public Equipe getEquipe() {
         return this.equipe;
     }
@@ -89,6 +95,24 @@ public class Servico implements java.io.Serializable {
 
     public void setValor(BigDecimal valor) {
         this.valor = valor;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "servico")
+    public Set<PacotePossuiServico> getPacotePossuiServicos() {
+        return this.pacotePossuiServicos;
+    }
+
+    public void setPacotePossuiServicos(Set<PacotePossuiServico> pacotePossuiServicos) {
+        this.pacotePossuiServicos = pacotePossuiServicos;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "servico")
+    public Set<ServicoPertenceEvento> getServicoPertenceEventos() {
+        return this.servicoPertenceEventos;
+    }
+
+    public void setServicoPertenceEventos(Set<ServicoPertenceEvento> servicoPertenceEventos) {
+        this.servicoPertenceEventos = servicoPertenceEventos;
     }
 
 }

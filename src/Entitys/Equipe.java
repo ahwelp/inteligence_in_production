@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 12/09/2017 16:02:48 by Hibernate Tools 4.3.1
+// Generated 13/09/2017 20:17:35 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "equipe",
-         schema = "public"
+        schema = "public"
 )
 public class Equipe implements java.io.Serializable {
 
@@ -27,21 +27,22 @@ public class Equipe implements java.io.Serializable {
     private Pessoa pessoa;
     private String titulo;
     private String descricao;
+    private Set<PacotePossuiServico> pacotePossuiServicos = new HashSet<PacotePossuiServico>(0);
     private Set<Servico> servicos = new HashSet<Servico>(0);
 
     public Equipe() {
     }
 
-    public Equipe(int codigo, Pessoa pessoa) {
+    public Equipe(int codigo) {
         this.codigo = codigo;
-        this.pessoa = pessoa;
     }
 
-    public Equipe(int codigo, Pessoa pessoa, String titulo, String descricao, Set<Servico> servicos) {
+    public Equipe(int codigo, Pessoa pessoa, String titulo, String descricao, Set<PacotePossuiServico> pacotePossuiServicos, Set<Servico> servicos) {
         this.codigo = codigo;
         this.pessoa = pessoa;
         this.titulo = titulo;
         this.descricao = descricao;
+        this.pacotePossuiServicos = pacotePossuiServicos;
         this.servicos = servicos;
     }
 
@@ -57,7 +58,7 @@ public class Equipe implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "responsavel", nullable = false)
+    @JoinColumn(name = "responsavel")
     public Pessoa getPessoa() {
         return this.pessoa;
     }
@@ -82,6 +83,15 @@ public class Equipe implements java.io.Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "equipe")
+    public Set<PacotePossuiServico> getPacotePossuiServicos() {
+        return this.pacotePossuiServicos;
+    }
+
+    public void setPacotePossuiServicos(Set<PacotePossuiServico> pacotePossuiServicos) {
+        this.pacotePossuiServicos = pacotePossuiServicos;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "equipe")

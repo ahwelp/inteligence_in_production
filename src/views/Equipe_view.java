@@ -1,14 +1,45 @@
 package views;
 
+import Entitys.Equipe;
+import Entitys.Pessoa;
+import dao.GenericoDAO;
+
 public class Equipe_view extends javax.swing.JInternalFrame {
+
+    Equipe eq = new Equipe();
+    Pessoa ps = new Pessoa();
 
     public Equipe_view() {
         initComponents();
         resetField();
     }
 
-    public void resetField() {
+    public Equipe_view(Equipe equ) {
+        initComponents();
+        this.eq = equ;
+        this.ps = eq.getPessoa();
 
+        tfdCodigo.setText(String.valueOf(this.eq.getCodigo()));
+        tfdTitulo.setText(this.eq.getTitulo());
+        txaDescricao.setText(this.eq.getDescricao());
+        ftfCpf.setText(this.ps.getCpf());
+        tfdNome.setText(this.ps.getNome());
+
+        btnAdicionar.setEnabled(true);
+        btnEditar.setEnabled(true);
+        btnBloquear.setEnabled(true);
+    }
+
+    private void resetField() {
+        tfdCodigo.setText(String.valueOf(new GenericoDAO<Equipe>(eq).ProximoCodigo()));
+        tfdTitulo.setText("");
+        txaDescricao.setText("");
+        tfdNome.setText("");
+        ftfCpf.setText("");
+
+        btnAdicionar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnBloquear.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -114,6 +145,10 @@ public class Equipe_view extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Responsável");
 
+        tfdNome.setOpaque(false);
+
+        ftfCpf.setOpaque(false);
+
         btnLocalizar.setText("Localizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,7 +158,7 @@ public class Equipe_view extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdTitulo)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
@@ -185,6 +220,11 @@ public class Equipe_view extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        eq.setTitulo(tfdTitulo.getText());
+        eq.setDescricao(txaDescricao.getText());
+        eq.setPessoa(ps);
+
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 

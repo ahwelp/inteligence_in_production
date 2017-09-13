@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 11/09/2017 17:34:30 by Hibernate Tools 4.3.1
+// Generated 13/09/2017 20:17:35 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "logradouro",
-         schema = "public"
+        schema = "public"
 )
 public class Logradouro implements java.io.Serializable {
 
@@ -62,7 +62,7 @@ public class Logradouro implements java.io.Serializable {
         this.nome = nome;
     }
 
-    @Column(name = "sigla", length = 10)
+    @Column(name = "sigla", length = 5)
     public String getSigla() {
         return this.sigla;
     }

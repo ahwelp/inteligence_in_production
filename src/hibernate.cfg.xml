@@ -22,11 +22,11 @@
     <mapping class="Entitys.Estado"/>
     <mapping class="Entitys.Cidade"/>
     <mapping class="Entitys.PossuiEnderecoId"/>
-    <mapping class="Entitys.Logradouro"/>
     <mapping class="Entitys.TipoContato"/>
+    <mapping class="Entitys.Logradouro"/>
     <mapping class="Entitys.PossuiContatoId"/>
-    <mapping class="Entitys.TipoEvento"/>
     <mapping class="Entitys.Evento"/>
+    <mapping class="Entitys.TipoEvento"/>
     <mapping class="Entitys.PacotePossuiServicoId"/>
     <mapping class="Entitys.PacotePossuiServico"/>
     <mapping class="Entitys.Contato"/>

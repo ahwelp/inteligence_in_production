@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 11/09/2017 17:34:30 by Hibernate Tools 4.3.1
+// Generated 13/09/2017 20:17:35 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "pessoa",
-        schema = "public"
+         schema = "public"
 )
 public class Pessoa implements java.io.Serializable {
 
@@ -33,6 +33,7 @@ public class Pessoa implements java.io.Serializable {
     private String orgexp;
     private String genero;
     private Set<PossuiContato> possuiContatos = new HashSet<PossuiContato>(0);
+    private Set<Equipe> equipes = new HashSet<Equipe>(0);
     private Set<PossuiEndereco> possuiEnderecos = new HashSet<PossuiEndereco>(0);
 
     public Pessoa() {
@@ -44,7 +45,7 @@ public class Pessoa implements java.io.Serializable {
         this.nascimento = nascimento;
     }
 
-    public Pessoa(int codigo, String nome, String apelido, String cpf, String rg, Date nascimento, String orgexp, String genero, Set<PossuiContato> possuiContatos, Set<PossuiEndereco> possuiEnderecos) {
+    public Pessoa(int codigo, String nome, String apelido, String cpf, String rg, Date nascimento, String orgexp, String genero, Set<PossuiContato> possuiContatos, Set<Equipe> equipes, Set<PossuiEndereco> possuiEnderecos) {
         this.codigo = codigo;
         this.nome = nome;
         this.apelido = apelido;
@@ -54,6 +55,7 @@ public class Pessoa implements java.io.Serializable {
         this.orgexp = orgexp;
         this.genero = genero;
         this.possuiContatos = possuiContatos;
+        this.equipes = equipes;
         this.possuiEnderecos = possuiEnderecos;
     }
 
@@ -139,6 +141,15 @@ public class Pessoa implements java.io.Serializable {
 
     public void setPossuiContatos(Set<PossuiContato> possuiContatos) {
         this.possuiContatos = possuiContatos;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    public Set<Equipe> getEquipes() {
+        return this.equipes;
+    }
+
+    public void setEquipes(Set<Equipe> equipes) {
+        this.equipes = equipes;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")

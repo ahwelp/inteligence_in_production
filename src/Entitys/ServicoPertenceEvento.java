@@ -1,5 +1,5 @@
 package Entitys;
-// Generated 13/09/2017 17:03:39 by Hibernate Tools 4.3.1
+// Generated 13/09/2017 20:17:35 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
  */
 @Entity
 @Table(name = "servico_pertence_evento",
-         schema = "public"
+        schema = "public"
 )
 public class ServicoPertenceEvento implements java.io.Serializable {
 

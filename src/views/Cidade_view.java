@@ -5,7 +5,6 @@ import Entitys.Estado;
 import dao.CidadeDAO;
 import dao.GenericoDAO;
 import javax.swing.JOptionPane;
-import utils.Support;
 
 public class Cidade_view extends javax.swing.JInternalFrame {
 
@@ -18,7 +17,7 @@ public class Cidade_view extends javax.swing.JInternalFrame {
         resetField();
     }
 
-    public void resetField() {
+    private void resetField() {
         tfdNome.setText("");
         tfdNome.requestFocus(true);
         this.cid = new Cidade();

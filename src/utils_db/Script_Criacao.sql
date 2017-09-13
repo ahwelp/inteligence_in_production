@@ -160,6 +160,6 @@ CREATE TABLE servico_pertence_evento(
     valor_original  DECIMAL(5,2) NOT NULL,
     valor_final     DECIMAL(5,2) NOT NULL,
     CONSTRAINT pk_servico_pertence_evento PRIMARY KEY (evento_cod),
-    CONSTRAINT fk_servico_pertence_evento_evento FOREIGN KEY (evento) REFERENCES evento (codigo),
+    CONSTRAINT fk_servico_pertence_evento_evento FOREIGN KEY (evento_cod) REFERENCES evento (codigo),
     CONSTRAINT fk_servico_pertence_evento_servico FOREIGN KEY (servico) REFERENCES servico (codigo)
 );
